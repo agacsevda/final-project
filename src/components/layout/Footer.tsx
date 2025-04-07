@@ -1,4 +1,37 @@
 import { Link } from "react-router-dom";
+const ojsNutLinks = [
+  { name: "İletişim", path: "/iletisim" },
+  { name: "Hakkımızda", path: "/hakkimizda" },
+  { name: "Sıkça Sorulan Sorular" },
+  { name: "KVKK" },
+  { name: "Çalışma İlkelerimiz" },
+  { name: "Satış Sözleşmesi" },
+  { name: "Garanti ve İade Koşulları" },
+  { name: "Gerçek Müşteri Yorumları" },
+  { name: "Blog" }
+];
+const categories = [
+  { name: "Whey Protein", path: "#" },
+  { name: "Cream of Rice", path: "#" },
+  { name: "Creatine", path: "#" },
+  { name: "BCAA+", path: "#" },
+  { name: "Pre-Workout", path: "#" },
+  { name: "Fitness Paketi", path: "#" },
+  { name: "Collagen", path: "#" },
+  { name: "Günlük Vitamin Paketi", path: "#" },
+  { name: "ZMA", path: "#" }
+];
+const popularProducts = [
+  { name: "Protein", path: "#" },
+  { name: "Spor Gıdaları", path: "#" },
+  { name: "Sağlık", path: "#" },
+  { name: "Gıda", path: "#" },
+  { name: "Vitamin", path: "#" },
+  { name: "Aksesuar", path: "#" },
+  { name: "Tüm Ürünler", path: "#" },
+  { name: "Paketler", path: "#" },
+  { name: "Lansmana Özel Fırsatlar", path: "#" }
+];
 
 const Footer = () => {
   return (
@@ -26,58 +59,30 @@ const Footer = () => {
                 <br />
                 NUTRITION
               </h4>
-              <ul className="space-y-1 text-gray-300">
-                <li>
-                  <Link
-                    to="/iletisim"
-                    className="text-gray-600 hover:text-gray-900"
-                  >
-                    İletişim
-                  </Link>
-                </li>
-                <Link
-                  to="/hakkimizda"
-                  className="text-gray-600 hover:text-gray-900"
-                >
-                  Hakkımızda
-                </Link>
-                <li>Sıkça Sorulan Sorular</li>
-                <li>KVKK</li>
-                <li>Çalışma İlkelerimiz</li>
-                <li>Satış Sözleşmesi</li>
-                <li>Garanti ve İade Koşulları</li>
-                <li>Gerçek Müşteri Yorumları</li>
-                <li>Blog</li>
+              
+              <ul className="space-y-1 text-gray-300 ">
+               {ojsNutLinks.map((ojs)=>
+              <li key={ojs.name}>{ojs.name}</li>
+              )}
               </ul>
             </div>
           </div>
           <div>
             <h4 className="mb-2 font-bold">Kategoriler</h4>
             <ul className="space-y-1 text-gray-300">
-              <li>Whey Protein</li>
-              <li>Cream of Rice</li>
-              <li>Creatine</li>
-              <li>BCAA+</li>
-              <li>Pre-Workout</li>
-              <li>Fitness Paketi</li>
-              <li>Collagen</li>
-              <li>Günlük Vitamin Paketi</li>
-              <li>ZMA</li>
+              {categories.map((category)=>
+             <li key={category.name}>{category.name}</li>
+             
+             )}
             </ul>
           </div>
 
           <div>
           <h4 className="mb-2 font-bold">Popüler Ürünler</h4>
           <ul className="space-y-1 text-gray-300">
-          <li>Protein</li>
-          <li>Spor Gıdaları</li>
-          <li>Sağlık</li>
-          <li>Gıda</li>
-          <li>Vitamin</li>
-          <li>Aksesuar</li>
-          <li>Tüm Ürünler</li>
-          <li>Paketler</li>
-          <li>Lansmana Özel Fırsatlar</li>
+         {popularProducts.map((product)=>
+       <li key={product.name}>{product.name}</li>
+       )}
         </ul>
           </div>
         </div>
