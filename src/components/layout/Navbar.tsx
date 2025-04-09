@@ -81,7 +81,7 @@ const Navbar = () => {
         {/* Desktop Search and Auth */}
         <div className="hidden items-center gap-4 md:flex">
           <div className="flex w-full max-w-sm items-center">
-            <Input type="email" placeholder="Aramak İstediğiniz Ürün" />
+            <Input type="email" placeholder="Aradığınız Ürünü Yazın" />
             <Button type="submit">Ara</Button>
           </div>
           <Button variant="outline" size="sm">

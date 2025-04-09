@@ -1,4 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 
 const ojsNutLinks = [
   { name: "İletişim", path: "/iletisim" },
@@ -9,7 +16,7 @@ const ojsNutLinks = [
   { name: "Satış Sözleşmesi" },
   { name: "Garanti ve İade Koşulları" },
   { name: "Gerçek Müşteri Yorumları" },
-  { name: "Blog" }
+  { name: "Blog" },
 ];
 
 const categories = [
@@ -21,7 +28,7 @@ const categories = [
   { name: "Fitness Paketi", path: "#" },
   { name: "Collagen", path: "#" },
   { name: "Günlük Vitamin Paketi", path: "#" },
-  { name: "ZMA", path: "#" }
+  { name: "ZMA", path: "#" },
 ];
 
 const popularProducts = [
@@ -33,12 +40,12 @@ const popularProducts = [
   { name: "Aksesuar", path: "#" },
   { name: "Tüm Ürünler", path: "#" },
   { name: "Paketler", path: "#" },
-  { name: "Lansmana Özel Fırsatlar", path: "#" }
+  { name: "Lansmana Özel Fırsatlar", path: "#" },
 ];
 
 const Footer = () => {
   return (
-    <footer className="border-t bg-[#000000] py-8 text-white">
+    <footer className="border-t bg-gray-900 py-8 text-white">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 pt-5 md:grid-cols-2">
           <h5 className="text-lg">
@@ -53,7 +60,8 @@ const Footer = () => {
             bizimle iletişime geçtiğinde çözüme kavuşturacağız.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 pt-28 md:grid-cols-3">
+
+        <div className="hidden grid-cols-1 gap-8 pt-28 md:grid md:grid-cols-3">
           <div>
             <h3 className="mb-4 text-lg font-bold"></h3>
             <div>
@@ -87,7 +95,7 @@ const Footer = () => {
           </div>
           <div>
             <h4 className="mb-2 font-bold">Popüler Ürünler</h4>
-            <ul className="space-y-2 text-gray-300 leading-relaxed">
+            <ul className="space-y-2 leading-relaxed text-gray-300">
               {popularProducts.map((product) => (
                 <li key={product.name}>
                   <Link to={product.path} className="hover:text-white">
@@ -98,7 +106,55 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-8 text-center">
+
+        {/*mobil screen footer  */}
+        <div className="mx-auto flex max-w-screen-xl md:hidden">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="Ojs Nut...">
+              <AccordionTrigger className="font-bold text-uppercase"> OJS NUTRITION</AccordionTrigger>
+              <AccordionContent>
+                <ul className="space-y-2 text-gray-300">
+                  {ojsNutLinks.map((ojs) => (
+                    <li key={ojs.name}>
+                      <Link to={ojs.path || "#"} className="hover:text-white">
+                        {ojs.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="Kategoriler">
+              <AccordionTrigger className="font-bold text-uppercase">Kategoriler</AccordionTrigger>
+              <AccordionContent>
+              <ul className="space-y-2 text-gray-300">
+              {categories.map((category) => (
+                <li key={category.name}>
+                  <Link to={category.path} className="hover:text-white">
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="Popüler ürünler">
+              <AccordionTrigger className="font-bold text-uppercase">Popüler ürünler</AccordionTrigger>
+              <AccordionContent>
+              <ul className="space-y-2 leading-relaxed text-gray-300">
+              {popularProducts.map((product) => (
+                <li key={product.name}>
+                  <Link to={product.path} className="hover:text-white">
+                    {product.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+        <div className="mt-8 border-t border-gray-200 py-2 text-center">
           <p className="text-gray-600">
             &copy; {new Date().getFullYear()} Tüm Hakları Saklıdır.
           </p>
