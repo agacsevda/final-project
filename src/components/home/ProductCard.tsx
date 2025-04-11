@@ -74,9 +74,10 @@ function ProductCard() {
                 <Button
                   variant="default"
                   className="mt-2 bg-black py-1 text-sm text-white hover:bg-gray-800"
+                  onClick={() => window.location.href = `/tumurunler/AllProducts?name=${encodeURIComponent(card.title)}`}
                 >
                   İNCELE
-                </Button>
+                </Button >
               </div>
             </div>
           </div>

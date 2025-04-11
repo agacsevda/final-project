@@ -15,3 +15,13 @@ export interface ContainerCardProps {
   comment:string;
   price:number;
 }
+
+export interface AllProductCardProps {
+  id: number;
+  title: string;
+  href: string;
+  description: string;
+  price: number;
+  comment: string;
+  rating: number;
+}

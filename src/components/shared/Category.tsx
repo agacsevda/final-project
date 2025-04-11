@@ -13,15 +13,19 @@ import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
+import { Link } from "react-router-dom";
+
 
 // Kategori verileri
 const categories = [
   {
     title: "Proteinler",
     items: [
+      
       { name: "Whey Protein", description: "Hızlı emilen protein tozu" },
       { name: "Kazein Protein", description: "Yavaş salınımlı protein" },
-      { name: "Bitkisel Protein", description: "Vegan protein alternatifleri" }
+      { name: "Bitkisel Protein", description: "Vegan protein alternatifleri" },
+      {href:"/#"}
     ]
   },
   {
@@ -29,7 +33,8 @@ const categories = [
     items: [
       { name: "Multivitamin", description: "Günlük vitamin ihtiyacı" },
       { name: "Vitamin D", description: "Kemik sağlığı için" },
-      { name: "B Kompleks", description: "Enerji metabolizması için" }
+      { name: "B Kompleks", description: "Enerji metabolizması için" },
+      {href:"/#"}
     ]
   },
   {
@@ -37,7 +42,8 @@ const categories = [
     items: [
       { name: "Gluten Free Bar", description: "Glutensiz protein barlar" },
       { name: "Glutensiz Karışımlar", description: "Spor sonrası takviyeler" },
-      { name: "Glutensiz İçecekler", description: "Performans içecekleri" }
+      { name: "Glutensiz İçecekler", description: "Performans içecekleri" },
+      {href:"/#"}
     ]
   },
   {
@@ -45,9 +51,18 @@ const categories = [
     items: [
       { name: "Yeni Gelenler", description: "En yeni ürünlerimiz" },
       { name: "Çok Satanlar", description: "En popüler ürünlerimiz" },
-      { name: "İndirimli Ürünler", description: "Kampanyalı ürünler" }
+      { name: "İndirimli Ürünler", description: "Kampanyalı ürünler" },
+      {href:"/#"}
+    ]
+  },
+  {
+    title:"TÜM ÜRÜNLER",
+    items:[
+      {name:"TÜM ÜRÜNLER", description:"Tüm Ürünlerimiz", href:"#"},
+    
     ]
   }
+ 
 ]
 
 
@@ -71,7 +86,12 @@ export function NavigationMenuDemo() {
           {categories.map((category) => (
             <NavigationMenuItem key={category.title}>
               <NavigationMenuTrigger className="text-white bg-black">
-                {category.title}
+                <Link 
+                  to={`/tumurunler/AllProducts?name=${encodeURIComponent(category.title)}`}
+                  onClick={() => window.location.href = `/tumurunler/AllProducts?name=${encodeURIComponent(category.title)}`}
+                >
+                  {category.title}
+                </Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
@@ -79,7 +99,7 @@ export function NavigationMenuDemo() {
                     <ListItem
                       key={item.name}
                       title={item.name}
-                      href="#"
+                     
                     >
                       {item.description}
                     </ListItem>

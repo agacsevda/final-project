@@ -125,7 +125,7 @@ const Footer = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="Kategoriler">
-              <AccordionTrigger className="font-bold text-uppercase">Kategoriler</AccordionTrigger>
+              <AccordionTrigger className="font-bold text-uppercase">KATEGORİLER</AccordionTrigger>
               <AccordionContent>
               <ul className="space-y-2 text-gray-300">
               {categories.map((category) => (
@@ -139,7 +139,7 @@ const Footer = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="Popüler ürünler">
-              <AccordionTrigger className="font-bold text-uppercase">Popüler ürünler</AccordionTrigger>
+              <AccordionTrigger className="font-bold text-uppercase">POPÜLER ÜRÜNLER</AccordionTrigger>
               <AccordionContent>
               <ul className="space-y-2 leading-relaxed text-gray-300">
               {popularProducts.map((product) => (
