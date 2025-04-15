@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
   faBasketShopping,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Menu, ShoppingCart } from "lucide-react";
@@ -91,7 +92,7 @@ const Navbar = () => {
                   variant="outline"
                   className="px-6 py-3 text-lg text-[#919191] hover:text-[#919191]"
                 >
-                  <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
+                  <FontAwesomeIcon icon={faUser} className="mr-2" />
                   Hesap
                   <FontAwesomeIcon icon={faAngleDown} className="me-2" />
                 </Button>
