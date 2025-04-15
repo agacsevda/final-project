@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { NavigationMenuDemo } from "@/components/shared/Category";
 import { Input } from "@/components/ui/input";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleDown,
+  faBasketShopping,
+} from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Menu, ShoppingCart } from "lucide-react";
 import {
   Drawer,
@@ -14,7 +19,20 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import React from "react";
+
 const Navbar = () => {
+  const [position, setPosition] = React.useState("bottom");
   return (
     <nav className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-10">
@@ -26,23 +44,16 @@ const Navbar = () => {
                 <Menu size={24} />
               </button>
             </DrawerTrigger>
-            <DrawerContent className="h-full w-[300px] left-0 rounded-none">
+            <DrawerContent className="left-0 h-full w-[300px] rounded-none">
               <DrawerHeader>
                 <DrawerTitle>Menü</DrawerTitle>
               </DrawerHeader>
               <div className="flex flex-col space-y-4 p-4">
-                <Link to="/" className="text-lg font-medium">
-                  Ana Sayfa
-                </Link>
-                <Link to="/hakkimizda" className="text-lg font-medium">
-                  Hakkımızda
-                </Link>
-                <Link to="/iletisim" className="text-lg font-medium">
-                  İletişim
-                </Link>
                 <div className="flex flex-col space-y-2">
                   <Input type="email" placeholder="Aramak İstediğiniz Ürün" />
-                  <Button type="submit" className="w-full">Ara</Button>
+                  <Button type="submit" className="w-full">
+                    Ara
+                  </Button>
                 </div>
                 <Button variant="outline" className="w-full">
                   Giriş Yap
@@ -61,21 +72,10 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           {/* Logo */}
           <Link to="/" className="text-xl font-bold">
-            Logo
+            <img src="/src/assets/images/logo_siyah.jpg" alt="" />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-6 md:flex">
-            <Link to="/" className="text-sm font-medium hover:underline">
-              Ana Sayfa
-            </Link>
-            <Link to="/hakkimizda" className="text-sm font-medium hover:underline">
-              Hakkımızda
-            </Link>
-            <Link to="/iletisim" className="text-sm font-medium hover:underline">
-              İletişim
-            </Link>
-          </div>
         </div>
 
         {/* Desktop Search and Auth */}
@@ -84,10 +84,58 @@ const Navbar = () => {
             <Input type="email" placeholder="Aradığınız Ürünü Yazın" />
             <Button type="submit">Ara</Button>
           </div>
-          <Button variant="outline" size="sm">
-            Giriş Yap
-          </Button>
-          <Button size="sm">Kaydol</Button>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="px-6 py-3 text-lg text-[#919191] hover:text-[#919191]"
+                >
+                  <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
+                  Hesap
+                  <FontAwesomeIcon icon={faAngleDown} className="me-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                  value={position}
+                  onValueChange={setPosition}
+                >
+                  <DropdownMenuRadioItem value="none">
+                    <Button variant="outline" size="sm" className="mr-5">
+                      Giriş Yap
+                    </Button>
+                    <Button size="sm">Kaydol</Button>
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="px-6 py-3 text-lg text-[#919191] hover:text-[#919191]"
+                >
+                  <FontAwesomeIcon icon={faBasketShopping} className="mr-2" />
+                  Sepetim
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                  value={position}
+                  onValueChange={setPosition}
+                >
+                  <DropdownMenuRadioItem value="none">
+                    <Button size="sm">Devam Et</Button>
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
 
         {/* Mobile Cart Button */}

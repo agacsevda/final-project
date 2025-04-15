@@ -24,4 +24,15 @@ export interface AllProductCardProps {
   price: number;
   comment: string;
   rating: number;
+  discountedPrice: number | null;
 }
+
+export interface ProductDetailsProps {
+  id: number;
+  title: string;
+  href: string;
+  description: string;
+  price: number;
+  comment: string;
+  rating: number;
+  }

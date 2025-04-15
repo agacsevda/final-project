@@ -68,7 +68,7 @@ function ProductCard() {
             <div className="absolute inset-0 flex items-center justify-between p-6">
               <div></div>
               <div className="text-right">
-                <h3 className="rounded p-2 text-xl font-bold text-black">
+              <h3 className="rounded p-3 text-xl font-bold text-black break-words w-[150px]"> 
                   {card.title}
                 </h3>
                 <Button
