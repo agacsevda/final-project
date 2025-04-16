@@ -27,7 +27,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 3,
     title: "FITNESS PAKETİ",
-    href: "/src/assets/tumurunlerimages/fitness-paketi.png",
+    href: "/src/assets/tumurunlerimages/tumurunler-3.jpg",
     description: "EN POPÜLER ÜRÜNLER BİR ARADA",
     price: 1126,
     comment: "7950 Yorum",
@@ -173,6 +173,7 @@ function AllProducts() {
               className="group relative flex flex-col overflow-hidden bg-white p-4 transition-transform hover:-translate-y-1"
             >
               <div className="relative mb-4 aspect-square overflow-hidden">
+                <span className="absolute ">%20 İndirim</span>
                 <img
                   src={product.href}
                   alt={product.title}

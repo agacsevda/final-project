@@ -65,7 +65,7 @@ export default function ProductDetail() {
         {/* Price + Cart */}
         <div className="flex items-center justify-between mt-4">
           <div>
-            <p className="text-2xl font-bold">549 TL</p>
+            <p className="text-2xl font-bold">{product?.price}</p>
             <p className="text-sm text-gray-500">34.31 TL / Servis</p>
           </div>
           <div className="flex items-center gap-2">
