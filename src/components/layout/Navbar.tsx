@@ -90,7 +90,7 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           {/* Logo */}
           <Link to="/" className="text-xl font-bold">
-            <img src="/public/logo_siyah.jpg" alt="" />
+            <img src="/logo_siyah.jpg" alt="" />
           </Link>
 
           {/* Desktop Navigation */}
