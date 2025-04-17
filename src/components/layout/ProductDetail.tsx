@@ -1,6 +1,12 @@
 import { ProductDetailsProps } from '@/types';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function ProductDetail() {
   const [product, setProduct] = useState<ProductDetailsProps>();
@@ -15,11 +21,11 @@ export default function ProductDetail() {
     console.log(product);
     console.log(product?.title);
   return (
-    <div className="flex flex-col md:flex-row bg-white p-4 rounded-2xl shadow-md gap-6 max-w-5xl mx-auto mt-10">
+    <div className="flex flex-col md:flex-row  p-4 rounded-2xl  gap-6 max-w-5xl mx-auto mt-10">
       {/* Product Image */}
       <div className="md:w-1/2 flex justify-center">
-        <div className="bg-gray-100 rounded-xl p-4">
-          <img src="/your-product-image.png" alt="5-HTP" className="w-60 h-60 object-contain" />
+        <div className="sticky top-20 rounded-xl p-4 self-start">
+          <img src="/src/assets/tumurunlerimages/whey-protein.png" alt="5-HTP" className="w-60 h-60 object-contain" />
         </div>
       </div>
 
@@ -83,6 +89,30 @@ export default function ProductDetail() {
           <span>🚚 Aynı Gün Ücretsiz Kargo</span>
           <span>👥 750.000+ Mutlu Müşteri</span>
           <span>✅ Memnuniyet Garantisi</span>
+        </div>
+        <div>
+        <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Is it styled?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It comes with default styles that matches the other
+          components&apos; aesthetic.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It's animated by default, but you can disable it if you prefer.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+
         </div>
 
         {/* Footer */}

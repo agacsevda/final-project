@@ -131,8 +131,8 @@ function AllProducts() {
 
   const navigate = useNavigate();
 
-  const gotoDetails = (product:AllProductCardProps) => {
-    navigate(`/ProductDetail`,{state:product});
+  const gotoDetails = (product: AllProductCardProps) => {
+    navigate(`/ProductDetail`, { state: product });
   };
 
   useEffect(() => {
@@ -162,18 +162,23 @@ function AllProducts() {
       </h2>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {allproductdata.map((product) => {
-          const discountPrice = product.discountedPrice 
-            ? Math.round(((product.price - product.discountedPrice) / product.price) * 100) 
+          const discountPrice = product.discountedPrice
+            ? Math.round(
+                ((product.price - product.discountedPrice) / product.price) *
+                  100,
+              )
             : null;
-          
+
           return (
             <div
-              onClick={()=> gotoDetails(product)}
+              onClick={() => gotoDetails(product)}
               key={product.id}
               className="group relative flex flex-col overflow-hidden bg-white p-4 transition-transform hover:-translate-y-1"
             >
               <div className="relative mb-4 aspect-square overflow-hidden">
-                <span className="absolute ">%20 İndirim</span>
+                <span className="absolute right-0 top-0 z-10 rounded bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                  %{discountPrice} <br/>İNDİRİM
+                </span>
                 <img
                   src={product.href}
                   alt={product.title}
@@ -202,10 +207,13 @@ function AllProducts() {
                 </p>
                 <div className="mt-auto text-center">
                   <span className="text-center text-xl font-bold text-black">
-                    {product.discountedPrice ? product.discountedPrice : product.price } TL
+                    {product.discountedPrice
+                      ? product.discountedPrice
+                      : product.price}{" "}
+                    TL
                   </span>
                   {discountPrice && (
-                    <span className="ml-2 text-sm text-green-600">
+                    <span className="ml-2 text-sm text-green-600 line-through">
                       %{discountPrice} indirim
                     </span>
                   )}
