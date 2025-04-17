@@ -7,7 +7,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 1,
     title: "WHEY PROTEIN",
-    href: "/src/assets/tumurunlerimages/whey-protein.png",
+    href: "/tumurunlerimages/whey-protein.png",
     description: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
     price: 549,
     comment: "10869 Yorum",
@@ -17,7 +17,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 2,
     title: "WHEY ISOLATE",
-    href: "/src/assets/tumurunlerimages/whey-isolate.png",
+    href: "/whey-isolate.png",
     description: "% 90 PROTEİN EN SAF WHEY",
     price: 749,
     comment: "887 Yorum",
@@ -27,7 +27,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 3,
     title: "FITNESS PAKETİ",
-    href: "/src/assets/tumurunlerimages/tumurunler-3.jpg",
+    href: "/tumurunlerimages/tumurunler-3.jpg",
     description: "EN POPÜLER ÜRÜNLER BİR ARADA",
     price: 1126,
     comment: "7950 Yorum",
@@ -37,7 +37,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 4,
     title: "PEA PROTEIN",
-    href: "/src/assets/tumurunlerimages/pea-protein.png",
+    href: "/pea-protein.png",
     description: "EN POPÜLER VEGAN PROTEİN KAYNAĞI",
     price: 349,
     comment: "1778 Yorum",
@@ -47,7 +47,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 5,
     title: "MICELLAR CASEIN",
-    href: "/src/assets/tumurunlerimages/micellar-casein.png",
+    href: "/micellar-casein.png",
     description: "YAVAŞ SİNDİRİLEN PROTEİN KAYNAĞI",
     price: 599,
     comment: "166 Yorum",
@@ -57,7 +57,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 6,
     title: "EGG WHITE POWDER",
-    href: "/src/assets/tumurunlerimages/egg-white-powder.png",
+    href: "/egg-white-powder.png",
     description: "PROTEİNİ ALTIN STANDARDI",
     price: 899,
     comment: "339 Yorum",
@@ -67,7 +67,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 7,
     title: "MILK PROTEIN",
-    href: "/src/assets/tumurunlerimages/milk-protein.png",
+    href: "/milk-protein.png",
     description: "%80 KAZEİN %20 WHEY PROTEİNİ",
     price: 699,
     comment: "209 Yorum",
@@ -77,7 +77,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 8,
     title: "SOYA PROTEIN",
-    href: "/src/assets/tumurunlerimages/soya-protein.png",
+    href: "/soya-protein.png",
     description: "VEGAN PROTEİN KAYNAĞI",
     price: 449,
     comment: "214 Yorum",
@@ -87,7 +87,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 9,
     title: "PROTEIN BAR 2'Lİ PAKET",
-    href: "/src/assets/tumurunlerimages/protein-bar-2li.png",
+    href: "/protein-bar-2li.png",
     description: "%30 PROTEİN, ŞEKER İLAVESİZ",
     price: 90,
     comment: "166 Yorum",
@@ -97,7 +97,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 10,
     title: "MASS GAINER LANSMAN",
-    href: "/src/assets/tumurunlerimages/mass-gainer.png",
+    href: "/mass-gainer.png",
     description: "YÜKSEK KALORİ | PRATİK ÖĞÜN",
     price: 999,
     comment: "339 Yorum",
@@ -107,7 +107,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 11,
     title: "PROTEIN BAR",
-    href: "/src/assets/tumurunlerimages/protein-bar.png",
+    href: "/protein-bar.png",
     description: "%30 PROTEİN, ŞEKER İLAVESİZ",
     price: 349,
     comment: "508 Yorum",
@@ -117,7 +117,7 @@ export const allproductdata: AllProductCardProps[] = [
   {
     id: 12,
     title: "COLLAGEN COFFEE",
-    href: "/src/assets/tumurunlerimages/collagen-coffee.png",
+    href: "/collagen-coffee.png",
     description: "KOLA-JENLİ KAHVE",
     price: 349,
     comment: "377 Yorum",

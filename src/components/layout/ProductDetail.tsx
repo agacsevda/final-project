@@ -25,7 +25,7 @@ export default function ProductDetail() {
       {/* Product Image */}
       <div className="md:w-1/2 flex justify-center">
         <div className="sticky top-20 rounded-xl p-4 self-start">
-          <img src="/src/assets/tumurunlerimages/whey-protein.png" alt="5-HTP" className="w-60 h-60 object-contain" />
+          <img src="/tumurunlerimages/whey-protein.png" alt="5-HTP" className="w-60 h-60 object-contain" />
         </div>
       </div>
 

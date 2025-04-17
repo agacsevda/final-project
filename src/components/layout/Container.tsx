@@ -5,7 +5,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 1,
     title: "WHEY PROTEIN",
-    href: "/src/assets/images/container-1.jpg",
+    href: "images/container-1.jpg",
     description: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
     price:549 ,
     comment:" 4 Yorum"
@@ -14,7 +14,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 2,
     title: "FITNESS PAKETİ",
-    href: "/src/assets/images/container-2.jpg",
+    href: "images/container-2.jpg",
     description: "EN POPÜLER ÜRÜNLER BİR ARADA",
      price:799  ,
     comment:" 0 Yorum"
@@ -22,7 +22,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 3,
     title: "GÜNLÜK VİTAMİN PAKETİ",
-    href: "/src/assets/images/container-3.jpg",
+    href: "images/container-3.jpg",
     description: "EN SIK TÜKETİLEN TAKVİYELER",
      price:549 ,
     comment:" 1 Yorum"
@@ -30,7 +30,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 4,
     title: "PRE-WORKOUT SUPREME",
-    href: "/src/assets/images/container-4.jpg",
+    href: "images/container-4.jpg",
     description: "ANTRENMAN ÖNCESİ TAKVİYESİ",
      price:399 ,
     comment:" 5 Yorum"
@@ -38,7 +38,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 5,
     title: "CREAM OF RICE",
-    href: "/src/assets/images/container-5.jpg",
+    href: "images/container-5.jpg",
     description: "EN LEZZETLİ PİRİNÇ KREMASI",
      price:239 ,
     comment:" 6 Yorum"
@@ -46,7 +46,7 @@ const containerdData: ContainerCardProps[] = [
   {
     id: 6,
     title: "CREATINE",
-    href: "/src/assets/images/container-6.jpg",
+    href:"images/container-6.jpg",
     description: "EN POPÜLER SPORCU TAKVİYESİ",
      price:239 ,
     comment:" 2 Yorum"
