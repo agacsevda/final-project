@@ -11,7 +11,7 @@ const Home = () => {
       <ProductCard />
       <Container />
       <div className="my-10 w-full">
-        <img width={"100%"} src="/src/assets/images/containeranabanner.png" />
+        <img width={"100%"} src="images/containeranabanner.png" />
       </div>
       <Slider />
     </section>

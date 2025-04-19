@@ -7,6 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import Container from './Container';
+import Stars from '../stars/stars';
+import Panigation from '../stars/Panigation';
+
 
 export default function ProductDetail() {
   const [product, setProduct] = useState<ProductDetailsProps>();
@@ -21,6 +25,7 @@ export default function ProductDetail() {
     console.log(product);
     console.log(product?.title);
   return (
+    <>
     <div className="flex flex-col md:flex-row  p-4 rounded-2xl  gap-6 max-w-5xl mx-auto mt-10">
       {/* Product Image */}
       <div className="md:w-1/2 flex justify-center">
@@ -112,12 +117,23 @@ export default function ProductDetail() {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
+    
 
         </div>
+        
+         
+        
 
         {/* Footer */}
         <p className="text-xs text-gray-400 mt-2">Son Kullanma Tarihi: 07/2025</p>
       </div>
+      
+      
     </div>
+  <Container title="SON GÖRÜNTÜLENEN ÜRÜNLER" />
+  <Stars/>
+  <Panigation/>
+  </>
   );
+  
 }

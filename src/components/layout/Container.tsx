@@ -52,12 +52,17 @@ const containerdData: ContainerCardProps[] = [
     comment:" 2 Yorum"
   },
 ];
+type ContainerProps = {
+  title?: string;
+};
 
-function Container() {
+
+function Container({ title = "ÇOK SATANLAR" }: ContainerProps) 
+ {
   return (
     <>
      {/* v4.0 da container yapısı bu şekilde kullanılıyormuş */}
-     <h2 className="text-center font-inter font-semibold text-[21.56px] leading-[20px]">ÇOK SATANLAR</h2>
+     <h2 className="text-center font-inter font-semibold text-[21.56px] leading-[20px]">{title}</h2>
       <div className="max-w-screen-xl mx-auto my-10 grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {containerdData.map((container) => (
           <div key={container.id} className="w-full p-4 text-center min-h-[320px] flex flex-col justify-between">
@@ -79,6 +84,7 @@ function Container() {
           </div>
         ))}
       </div>
+      
     </>
   );
 }
