@@ -125,7 +125,7 @@ export default function ProductDetail() {
         
 
         {/* Footer */}
-        <p className="text-xs text-gray-400 mt-2">Son Kullanma Tarihi: 07/2025</p>
+        <p className="text-xs text-gray-400 mt-2 bg-slate-50">Son Kullanma Tarihi: 07/2025</p>
       </div>
       
       
