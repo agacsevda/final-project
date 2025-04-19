@@ -8,8 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Container from './Container';
-import Stars from '../stars/stars';
-import Panigation from '../stars/Panigation';
+import Stars from "../detailstars/Stars"
+import Panigation from '../detailstars/Panigation';
 
 
 export default function ProductDetail() {
