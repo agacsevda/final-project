@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Container from './Container';
-import Stars from "../detailstars/Stars"
+
 import Panigation from '../detailstars/Panigation';
 
 
@@ -131,7 +131,7 @@ export default function ProductDetail() {
       
     </div>
   <Container title="SON GÖRÜNTÜLENEN ÜRÜNLER" />
-  <Stars/>
+
   <Panigation/>
   </>
   );
