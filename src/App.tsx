@@ -5,6 +5,7 @@ import Contact from "@/pages/Contact";
 import Layout from "@/components/layout/Layout";
 import AllProducts from "./components/layout/AllProducts";
 import ProductDetail from "./components/layout/ProductDetail";
+import FrequentlyAskedQuestions from "./components/layout/FrequentlyAskedQuestions";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/iletisim" element={<Contact />} />
           <Route path="/tumurunler/AllProducts" element={<AllProducts/>} />
           <Route path="/ProductDetail" element={<ProductDetail/>} />
+          <Route path="/FrequentlyAskedQuestions" element={<FrequentlyAskedQuestions/>} />
         </Routes>
       </Layout>
     </Router>

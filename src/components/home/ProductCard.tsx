@@ -63,17 +63,17 @@ function ProductCard() {
             <img
               src={card.href}
               alt={card.title}
-              className="w-294 h-full object-cover"
+              className="md:w-248 h-full object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-between p-6">
               <div></div>
               <div className="text-right">
-              <h3 className="rounded p-3 text-xl font-bold text-black break-words w-[150px]"> 
+              <h3 className="rounded p-3 text-sm md:text-xl font-bold text-black break-words w-[150px]"> 
                   {card.title}
                 </h3>
                 <Button
                   variant="default"
-                  className="mt-2 bg-black py-1 text-sm text-white hover:bg-gray-800"
+                  className="mt-2 bg-black py-1 text-sm text-white hover:bg-gray-800   sm:text-sm md:text-xl"
                   onClick={() => window.location.href = `/tumurunler/AllProducts?name=${encodeURIComponent(card.title)}`}
                 >
                   İNCELE
@@ -85,6 +85,8 @@ function ProductCard() {
       ))}
     </div>
   );
+
 }
+
 
 export default ProductCard;

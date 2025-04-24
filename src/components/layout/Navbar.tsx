@@ -65,7 +65,7 @@ const Navbar = () => {
                     width={"100%"}
                     type="text"
                     placeholder="Aramak İstediğiniz Ürün"
-                    className="pl-10 pr-4 py-3 rounded-full bg-gray-100 placeholder:text-gray-500 text-sm w-full"
+                    className="w-full rounded-full bg-gray-100 py-3 pl-10 pr-4 text-sm placeholder:text-gray-500"
                   />
                   <Button type="submit" className="w-full">
                     Ara
@@ -119,13 +119,11 @@ const Navbar = () => {
                   <FontAwesomeIcon icon={faAngleDown} className="me-2" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuContent className="w-44 text-center">
+                <DropdownMenuLabel></DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem className="text-center">Üye Girişi</DropdownMenuItem>
+                <DropdownMenuItem>Üye Ol</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -187,15 +185,14 @@ const Navbar = () => {
           </div>
         </button>
       </div>
-      <div className="relative  mt-4 md:hidden">
-                  <Input
-                    width={"100%"}
-                    type="text"
-                    placeholder="Aramak İstediğiniz Ürün"
-                    className="pl-10 pr-4 py-3 rounded-full bg-gray-100 placeholder:text-gray-500 text-sm w-full"
-                  />
-                  
-                </div>
+      <div className="relative mt-4 md:hidden">
+        <Input
+          width={"100%"}
+          type="text"
+          placeholder="Aramak İstediğiniz Ürün"
+          className="w-full rounded-full bg-gray-100 py-3 pl-10 pr-4 text-sm placeholder:text-gray-500"
+        />
+      </div>
 
       <div className="hidden md:block">
         <NavigationMenuDemo />

@@ -6,11 +6,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import path from "path";
 
 const ojsNutLinks = [
   { name: "İletişim", path: "/iletisim" },
   { name: "Hakkımızda", path: "/hakkimizda" },
-  { name: "Sıkça Sorulan Sorular" },
+  { name: "Sıkça Sorulan Sorular " , path: "/FrequentlyAskedQuestions"},
   { name: "KVKK" },
   { name: "Çalışma İlkelerimiz" },
   { name: "Satış Sözleşmesi" },
