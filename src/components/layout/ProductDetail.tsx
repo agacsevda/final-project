@@ -22,8 +22,14 @@ export default function ProductDetail() {
 
   console.log(product);
   console.log(product?.title);
+  const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
+  console.log(selectedFlavor);
+const [selectedSize, setSelectedSize] = useState<string | null>(null);
+console.log(selectedSize);
   return (
+    
     <>
+    
       <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-6 rounded-2xl p-4 md:flex-row">
         {/* Product Image */}
         <div className="flex justify-center md:w-1/2">
@@ -72,14 +78,24 @@ export default function ProductDetail() {
                 "Çilek",
               ].map((flavor) => (
                 <button
-                  key={flavor}
-                  className="rounded border px-3 py-1 text-sm hover:bg-gray-100"
+                onClick={() => setSelectedFlavor(flavor) }
+                
+                  key={flavor}  
+                  className={`rounded border px-3 py-1 text-sm hover:bg-gray-100 ${
+                    selectedFlavor === flavor ? "bg-black text-white" : ""
+                  }`}
                 >
+                  
                   {flavor}
+                  
                 </button>
+                
+                
               ))}
+              
             </div>
           </div>
+          
 
           {/* Boyut */}
           <div>
@@ -91,8 +107,11 @@ export default function ProductDetail() {
                 "1.6KG x 2 ADET\n128 servis",
               ].map((size, index) => (
                 <button
+                onClick={() => setSelectedSize(size)}
                   key={index}
-                  className="whitespace-pre rounded border px-3 py-2 text-center text-xs hover:bg-gray-100"
+                  className={`whitespace-pre rounded border px-3 py-2 text-center text-xs hover:bg-gray-100 ${
+                    selectedSize === size ? "bg-black text-white" : ""
+                  }`}
                 >
                   {size}
                 </button>

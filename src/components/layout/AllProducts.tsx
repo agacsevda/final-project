@@ -1,141 +1,65 @@
-import { AllProductCardProps } from "@/types";
 import { Star } from "lucide-react";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export const allproductdata: AllProductCardProps[] = [
-  {
-    id: 1,
-    title: "WHEY PROTEIN",
-    href: "/tumurunlerimages/whey-protein.png",
-    description: "EN ÇOK TERCİH EDİLEN PROTEİN TAKVİYESİ",
-    price: 549,
-    comment: "10869 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 2,
-    title: "WHEY ISOLATE",
-    href: "/whey-isolate.png",
-    description: "% 90 PROTEİN EN SAF WHEY",
-    price: 749,
-    comment: "887 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 3,
-    title: "FITNESS PAKETİ",
-    href: "/tumurunlerimages/tumurunler-3.jpg",
-    description: "EN POPÜLER ÜRÜNLER BİR ARADA",
-    price: 1126,
-    comment: "7950 Yorum",
-    rating: 5,
-    discountedPrice: 799,
-  },
-  {
-    id: 4,
-    title: "PEA PROTEIN",
-    href: "/pea-protein.png",
-    description: "EN POPÜLER VEGAN PROTEİN KAYNAĞI",
-    price: 349,
-    comment: "1778 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 5,
-    title: "MICELLAR CASEIN",
-    href: "/micellar-casein.png",
-    description: "YAVAŞ SİNDİRİLEN PROTEİN KAYNAĞI",
-    price: 599,
-    comment: "166 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 6,
-    title: "EGG WHITE POWDER",
-    href: "/egg-white-powder.png",
-    description: "PROTEİNİ ALTIN STANDARDI",
-    price: 899,
-    comment: "339 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 7,
-    title: "MILK PROTEIN",
-    href: "/milk-protein.png",
-    description: "%80 KAZEİN %20 WHEY PROTEİNİ",
-    price: 699,
-    comment: "209 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 8,
-    title: "SOYA PROTEIN",
-    href: "/soya-protein.png",
-    description: "VEGAN PROTEİN KAYNAĞI",
-    price: 449,
-    comment: "214 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-  {
-    id: 9,
-    title: "PROTEIN BAR 2'Lİ PAKET",
-    href: "/protein-bar-2li.png",
-    description: "%30 PROTEİN, ŞEKER İLAVESİZ",
-    price: 90,
-    comment: "166 Yorum",
-    rating: 5,
-    discountedPrice: 59,
-  },
-  {
-    id: 10,
-    title: "MASS GAINER LANSMAN",
-    href: "/mass-gainer.png",
-    description: "YÜKSEK KALORİ | PRATİK ÖĞÜN",
-    price: 999,
-    comment: "339 Yorum",
-    rating: 5,
-    discountedPrice: 699,
-  },
-  {
-    id: 11,
-    title: "PROTEIN BAR",
-    href: "/protein-bar.png",
-    description: "%30 PROTEİN, ŞEKER İLAVESİZ",
-    price: 349,
-    comment: "508 Yorum",
-    rating: 5,
-    discountedPrice: 249,
-  },
-  {
-    id: 12,
-    title: "COLLAGEN COFFEE",
-    href: "/collagen-coffee.png",
-    description: "KOLA-JENLİ KAHVE",
-    price: 349,
-    comment: "377 Yorum",
-    rating: 5,
-    discountedPrice: null,
-  },
-];
+ export const BASE_URL = "https://fe1111.projects.academy.onlyjs.com/api/v1";
+
+export const PHOTO_URL = "https://fe1111.projects.academy.onlyjs.com";
+
+interface PriceInfo {
+  profit: number;
+  total_price: number;
+  discounted_price: number;
+  price_per_servings: number;
+  discount_percentage: number;
+}
+
+interface Product {
+  id: string;
+  name: string;
+  short_explanation: string;
+  slug: string;
+  price_info: PriceInfo;
+  photo_src: string;
+  comment_count: number;
+  average_star: number;
+}
+
+interface ApiResponse {
+  status: string;
+  data: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Product[];
+  }
+}
+
+export const linksLoader = async () => {
+  const response = await fetch(`${BASE_URL}/products?limit=20&offset=0`);
+  const data = await response.json() as ApiResponse;
+  console.log(data);
+  return data;
+}
 
 function AllProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
   const [categoryName, setCategoryName] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
-  const gotoDetails = (product: AllProductCardProps) => {
+  const gotoDetails = (product: Product) => {
     navigate(`/ProductDetail`, { state: product });
   };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch(`${BASE_URL}/products?limit=20&offset=0`);
+      const data = await response.json() as ApiResponse;
+      setProducts(data.data.results);
+    };
+    fetchProducts();
+
     const handleLocationChange = () => {
       const params = new URLSearchParams(window.location.search);
       const title = params.get("name");
@@ -161,13 +85,8 @@ function AllProducts() {
         {categoryName || "Tüm Ürünler"}
       </h2>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {allproductdata.map((product) => {
-          const discountPrice = product.discountedPrice
-            ? Math.round(
-                ((product.price - product.discountedPrice) / product.price) *
-                  100,
-              )
-            : null;
+        {products.map((product) => {
+          const discountPrice = product.price_info.discount_percentage;
 
           return (
             <div
@@ -176,24 +95,26 @@ function AllProducts() {
               className="group relative flex flex-col overflow-hidden bg-white p-4 transition-transform hover:-translate-y-1"
             >
               <div className="relative mb-4 aspect-square overflow-hidden">
-                <span className="absolute right-0 top-0 z-10 rounded bg-red-600 px-2 py-1 text-xs font-bold text-white">
-                  %{discountPrice} <br/>İNDİRİM
-                </span>
+                {discountPrice && (
+                  <span className="absolute right-0 top-0 z-10 rounded bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                    %{discountPrice} <br/>İNDİRİM
+                  </span>
+                )}
                 <img
-                  src={product.href}
-                  alt={product.title}
+                  src={PHOTO_URL+product.photo_src}
+                  alt={product.name}
                   className="h-full w-full object-contain transition-transform group-hover:scale-105"
                 />
               </div>
               <div className="flex flex-1 flex-col">
                 <h3 className="mb-1 text-center text-lg font-bold">
-                  {product.title}
+                  {product.name}
                 </h3>
                 <p className="mb-2 text-center text-sm text-gray-600">
-                  {product.description}
+                  {product.short_explanation}
                 </p>
                 <div className="mb-2 flex items-center justify-center gap-1">
-                  {[...Array(product.rating)].map((_, i) => (
+                  {[...Array(Math.round(product.average_star))].map((_, i) => (
                     <Star
                       key={i}
                       size={18}
@@ -203,18 +124,18 @@ function AllProducts() {
                   ))}
                 </div>
                 <p className="mb-2 text-center text-sm text-gray-600">
-                  {product.comment}
+                  {product.comment_count} Yorum
                 </p>
                 <div className="mt-auto text-center">
                   <span className="text-center text-xl font-bold text-black">
-                    {product.discountedPrice
-                      ? product.discountedPrice
-                      : product.price}{" "}
+                    {product.price_info.discounted_price
+                      ? product.price_info.discounted_price
+                      : product.price_info.total_price}{" "}
                     TL
                   </span>
                   {discountPrice && (
                     <span className="ml-2 text-sm text-green-600 line-through">
-                      %{discountPrice} indirim
+                      {product.price_info.total_price} TL
                     </span>
                   )}
                 </div>

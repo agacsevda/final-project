@@ -1,3 +1,5 @@
+import { ProductVariant } from "@/components/layout/DetailHook";
+
 export interface ProductCardProps {
   id: number;
   title: string;
@@ -35,4 +37,5 @@ export interface ProductDetailsProps {
   price: number;
   comment: string;
   rating: number;
+  variants: ProductVariant[];
   }
