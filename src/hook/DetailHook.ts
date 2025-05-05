@@ -85,13 +85,17 @@ export function useProductVariants(productVariants: ProductVariant[]) {
     const productAromas = Object.keys(productVariantsByAroma);
 
     function getAromaSizes(aroma: string) {
-        return productVariantsByAroma[aroma].map((variant) => variant.size);
+        return productVariantsByAroma[aroma]?.map((variant) => variant.size) || [];
     }
 
     function isSizeAvailable(size: ProductVariantSize) {
-        return !getAromaSizes(selectedVariant.aroma).find((aromaSize) =>
-            isSameSize(aromaSize, size)
-        );
+        if (!selectedVariant || !selectedVariant.aroma) {
+            return false;
+        }
+        
+        const aromaSizes = getAromaSizes(selectedVariant.aroma);
+        
+        return !aromaSizes.find((aromaSize) => isSameSize(aromaSize, size));
     }
 
     function isSelectedAroma(aroma: string) {

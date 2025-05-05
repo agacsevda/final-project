@@ -48,9 +48,7 @@ function AllProducts() {
 
   const navigate = useNavigate();
 
-  const gotoDetails = (product: Product) => {
-    navigate(`/ProductDetail`, { state: product });
-  };
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -89,8 +87,8 @@ function AllProducts() {
           const discountPrice = product.price_info.discount_percentage;
 
           return (
-            <div
-              onClick={() => gotoDetails(product)}
+            <div 
+              onClick={() => navigate(`/ProductDetail/${product.slug}`)}  
               key={product.id}
               className="group relative flex flex-col overflow-hidden bg-white p-4 transition-transform hover:-translate-y-1"
             >

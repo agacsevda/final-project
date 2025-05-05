@@ -2,6 +2,7 @@ import { ContainerCardProps } from "@/types";
 import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BASE_URL, PHOTO_URL } from "./AllProducts";
+import { Link } from "react-router-dom";
 
 type ContainerProps = {
   title?: string;
@@ -61,7 +62,7 @@ function Container({ title = "ÇOK SATANLAR" }: ContainerProps) {
       <h2 className="text-center font-inter font-semibold text-[21.56px] leading-[20px]">{title}</h2>
       <div className="max-w-screen-xl mx-auto my-10 grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {containers.map((container) => (
-          <div key={container.slug} className="w-full p-4 text-center min-h-[320px] flex flex-col justify-between">
+          <Link  to={`/ProductDetail/${container.slug}`} key={container.slug} className="w-full p-4 text-center min-h-[320px] flex flex-col justify-between cursor-pointer">
             <img
               src={`${PHOTO_URL}${container.photo_src}`}
               alt={container.name}
@@ -75,7 +76,7 @@ function Container({ title = "ÇOK SATANLAR" }: ContainerProps) {
               ))}
             </div>
             <p className="mt-2 text-xl font-semibold text-black">{container.price_info.discounted_price  ? container.price_info.discounted_price : container.price_info.total_price  } TL</p>
-          </div>
+          </Link>
         ))}
       </div>
     </>

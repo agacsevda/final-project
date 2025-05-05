@@ -1,8 +1,8 @@
 import Header from "@/components/home/Header";
 import ProductCard from "@/components/home/ProductCard";
 import Container from "@/components/layout/Container";
+import Slider from "@/components/home/Slider";
 
-import Slider from "@/components/layout/Slider";
 
 const Home = () => {
   return (

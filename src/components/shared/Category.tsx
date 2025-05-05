@@ -95,9 +95,9 @@ export function NavigationMenuDemo() {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                  {category.items.map((item) => (
+                  {category.items.map((item, index) => (
                     <ListItem
-                      key={item.name}
+                      key={index}
                       title={item.name}
                      
                     >
