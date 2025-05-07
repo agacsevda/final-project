@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData, useParams, useLocation } from "react-router-dom";
+import { useLoaderData, useParams, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, PHOTO_URL } from "./AllProducts";
 import { Star } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -31,6 +31,7 @@ interface ApiResponse {
 const CategoryPage = () => {
   const { mainCategory } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const title = queryParams.get("title");
   const [products, setProducts] = useState<Product[]>([]);
@@ -56,8 +57,7 @@ const CategoryPage = () => {
   }, [mainCategory]);
 
   const gotoDetails = (product: Product) => {
-    // Implement navigation logic here
-    console.log(`Navigating to details of product: ${product.name}`);
+    navigate(`/ProductDetail/${product.slug}`);
   };
 
   if (loading) {

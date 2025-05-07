@@ -117,7 +117,7 @@ function ProductCard() {
             className="relative h-full w-full"
           >
             <img src={card.href} alt={card.name} className="md:w-248 h-full object-cover" />
-            <div className="absolute inset-0 flex items-center justify-between p-6">
+            <div className="absolute inset-0 flex items-center justify-end p-4">
               <div>
                 <div className="text-right">
                   <h3 className="w-[150px] break-words rounded p-3 text-sm font-bold text-black md:text-xl">
@@ -148,7 +148,7 @@ function ProductCard() {
           className="relative h-full w-full"
         >
           <img src={cardData[5].href} alt={cardData[5].title} className="md:w-248 h-full object-cover" />
-          <div className="absolute inset-0 flex items-center justify-between p-6">
+          <div className="absolute inset-0 flex items-end justify-end p-4">
             <div>
               <div className="text-right">
                 <h3 className="w-[150px] break-words rounded p-3 text-sm font-bold text-black md:text-xl">
