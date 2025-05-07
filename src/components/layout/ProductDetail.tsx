@@ -174,7 +174,11 @@ export default function ProductDetail() {
                   <p className="text-2xl font-bold">
                     {selectedVariant.price.discounted_price || selectedVariant.price.total_price} TL
                   </p>
-                  <p className="text-sm text-gray-500">{selectedVariant.price.price_per_servings.toFixed(2)} TL / Servis</p>
+                  {selectedVariant.price.price_per_servings && (
+                    <p className="text-sm text-gray-500">
+                      {selectedVariant.price.price_per_servings.toFixed(2)} TL / Servis
+                    </p>
+                  )}
                 </>
               )}
             </div>
