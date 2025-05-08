@@ -83,6 +83,7 @@ export default function ProductDetail() {
   if (error || !product) {
     return <div className="flex items-center justify-center h-screen">{error || "Ürün bulunamadı"}</div>;
   }
+ 
 
   return (
     <>
@@ -95,6 +96,7 @@ export default function ProductDetail() {
               alt={product.name}
               className="h-full w-full object-contain"
             />
+            
           </div>
         </div>
 
@@ -125,19 +127,45 @@ export default function ProductDetail() {
           {/* Aroma - Sadece ürün ve aromalar varsa göster */}
           {productAromas.length > 0 && (
             <div>
-              <h3 className="font-semibold">AROMA:</h3>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {productAromas.map((flavor) => (
-                  <button
-                    onClick={() => selectAroma(flavor)}
-                    key={flavor}
-                    className={`rounded border px-3 py-1 text-sm hover:bg-gray-100 ${
-                      isSelectedAroma(flavor) ? "bg-black text-white" : ""
-                    }`}
-                  >
-                    {flavor}
-                  </button>
-                ))}
+              <h3 className="font-semibold text-gray-500">AROMA:</h3>
+              <div className="mt-2 grid grid-cols-2 md:grid-cols-3 gap-3">
+                {productAromas.map((flavor) => {
+                  // Aroma renk bandı
+                  const flavorBands: Record<string, string> = {
+                    "bisküvi": "bg-yellow-300",
+                    "çikolata": "bg-[#6B3F1D]",
+                    "muz": "bg-yellow-200",
+                    "salted caramel": "bg-orange-200",
+                    "choco nut": "bg-amber-700",
+                    "hindistan cevizi": "bg-amber-200",
+                    "raspberry cheesecake": "bg-pink-200",
+                    "çilek": "bg-red-200",
+                    "karpuz":"bg-red-400"
+                  };
+                  const normalized = flavor.trim().toLowerCase();
+                  const bandColor = flavorBands[normalized] || "bg-gray-300";
+                  const selected = isSelectedAroma(flavor);
+                  return (
+                    <div key={flavor} className="relative flex items-center">
+                      <button
+                        onClick={() => selectAroma(flavor)}
+                        className={`relative flex items-center w-[160px] h-[48px] rounded-md border bg-white px-3 py-1 text-base font-medium transition-all duration-150
+                          ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
+                          `}
+                      >
+                        <span className="mx-auto z-10">{flavor}</span>
+                        <div className={`absolute right-0 top-0 h-full w-2 ${bandColor} rounded-tr-md rounded-br-md z-0`}></div>
+                        {selected && (
+                          <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-[999] pointer-events-none">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 8.5L7 11.5L12 5.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -145,21 +173,29 @@ export default function ProductDetail() {
           {/* Boyut - Sadece sizes varsa göster */}
           {productSizes.length > 0 && (
             <div>
-              <h3 className="font-semibold">BOYUT:</h3>
-              <div className="mt-2 flex gap-2">
+              <h3 className="font-semibold text-gray-500 mt-4">BOYUT:</h3>
+              <div className="mt-2 flex gap-4">
                 {productSizes.map((size, index) => {
-                  const isNotAvailable = isSizeAvailable(size);
+                  const selected = isSelectedSize(size);
                   return (
-                    <button
-                      onClick={() => selectSize(size)}
-                      key={index}
-                      className={`whitespace-pre rounded border px-3 py-2 text-center text-xs hover:bg-gray-100 ${
-                        isSelectedSize(size) ? "bg-black text-white" : ""
-                      } ${isNotAvailable ? "opacity-50 cursor-not-allowed" : ""}`}
-                      disabled={isNotAvailable}
-                    >
-                      {size.total_services} servis
-                    </button>
+                    <div key={index} className="relative flex items-center">
+                      <button
+                        onClick={() => selectSize(size)}
+                        className={`relative w-[140px] h-[60px] rounded-md border bg-white px-2 py-1 flex flex-col items-center justify-center transition-all duration-150
+                          ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
+                          `}
+                      >
+                        <span className="text-base font-bold">150G</span>
+                        <span className="text-xs mt-1">{size.total_services} servis</span>
+                        {selected && (
+                          <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-20">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 8.5L7 11.5L12 5.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
+                        )}
+                      </button>
+                    </div>
                   );
                 })}
               </div>
