@@ -8,6 +8,7 @@ import ProductDetail from "./components/layout/ProductDetail";
 import FrequentlyAskedQuestions from "./components/layout/FrequentlyAskedQuestions";
 import { loader } from "./components/home/ProductCard";
 import CategoryPage from "./components/layout/CategoryPage";
+import Cart from "@/pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "/products/main_category/:mainCategory",
         element: <CategoryPage />,
         loader: linksLoader
+      },
+      {
+        path: "sepetim",
+        element: <Cart />
       }
     ]
   }

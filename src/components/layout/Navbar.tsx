@@ -6,6 +6,8 @@ import {
   faAngleDown,
   faBasketShopping,
   faUser,
+  faTrash,
+  faSquareCaretRight
 } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Menu, ShoppingCart } from "lucide-react";
@@ -43,7 +45,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { useCartStore } from "@/lib/store/cartStore";
+import { PHOTO_URL } from "@/components/layout/AllProducts";
+
 const Navbar = () => {
+  const { items, removeItem, updateQuantity } = useCartStore();
+  const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <nav className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-10">
@@ -136,7 +145,7 @@ const Navbar = () => {
                 >
                   <div className="relative">
                     <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
-                      0
+                      {totalCount}
                     </span>
                     <FontAwesomeIcon
                       size="sm"
@@ -147,35 +156,82 @@ const Navbar = () => {
                   Sepetim
                 </Button>
               </SheetTrigger>
-              <SheetContent className="flex flex-col justify-between">
-                <SheetHeader className="flex flex-col items-center justify-center">
-                  <SheetTitle className="text-center text-2xl font-bold">
-                    Sepetim
-                  </SheetTitle>
-                  <SheetDescription className="flex max-h-[500px] flex-col items-center justify-center overflow-y-auto">
-                    Sepetinizdeki ürünleri görüntüleyebilirsiniz.
-                    <div className="flex flex-col items-center justify-center">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quisquam, quos.
-                      </p>
+              <SheetContent className="p-0 w-[400px] max-w-full flex flex-col h-full">
+                {/* Başlık */}
+                <div className="text-center font-bold text-lg py-3 border-b bg-white sticky top-0 z-10">SEPETİM</div>
+                {/* Ürünler */}
+                <div className="flex-1 min-h-[200px] bg-[#fafafa] overflow-y-auto">
+                  {items.length === 0 ? (
+                    <div className="text-center text-gray-500 mt-20">Sepetinizde ürün bulunmamaktadır.</div>
+                  ) : (
+                    <div className="divide-y divide-gray-200">
+                      {items.map((item) => (
+                        <div key={item.id} className="flex items-center px-2 py-4 bg-white">
+                          <img
+                            src={PHOTO_URL + item.photo_src}
+                            alt={item.name}
+                            className="h-14 w-14 object-contain rounded mr-3 border"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm">{item.name}</div>
+                            {item.selectedAroma && (
+                              <div className="text-xs text-gray-500">{item.selectedAroma}</div>
+                            )}
+                            {item.selectedSize && (
+                              <div className="text-xs text-gray-500">{item.selectedSize.total_services}gr</div>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="text-gray-400 hover:text-red-500"
+                              title="Kaldır"
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                            <button
+                              onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                              className="border rounded w-7 h-7 flex items-center justify-center text-lg"
+                            >
+                              -
+                            </button>
+                            <span className="w-6 text-center">{item.quantity}</span>
+                            <button
+                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              className="border rounded w-7 h-7 flex items-center justify-center text-lg"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <div className="ml-4 font-bold whitespace-nowrap text-lg">{item.price * item.quantity} TL</div>
+                        </div>
+                      ))}
                     </div>
-                  </SheetDescription>
-                </SheetHeader>
-                <SheetFooter>
-                  <Button className="w-full">Devam Et</Button>
-                </SheetFooter>
+                  )}
+                </div>
+                {/* Alt bar */}
+                {items.length > 0 && (
+                  <div className="absolute left-0 right-0 bottom-0 w-full bg-white border-t z-20 shadow-md p-0">
+                    <div className="flex items-center justify-end px-4 pt-2 pb-0">
+                      <div className="text-[11px] font-normal text-black tracking-tight text-right w-full">TOPLAM {total.toFixed(2)} TL</div>
+                    </div>
+                    <div className="px-4 pb-2 pt-1">
+                      <button className="w-full bg-black text-white rounded py-2 text-xs font-bold flex items-center justify-center gap-1">
+                        DEVAM ET <FontAwesomeIcon icon={faSquareCaretRight} className="text-white" style={{fontSize: '13px'}} />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </SheetContent>
             </Sheet>
           </div>
         </div>
 
         {/* Mobile Cart Button */}
-
         <button className="md:hidden">
           <div className="relative">
             <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
-              0
+              {totalCount}
             </span>
             <FontAwesomeIcon
               size="sm"
