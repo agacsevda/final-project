@@ -149,12 +149,12 @@ export default function ProductDetail() {
                     <div key={flavor} className="relative flex items-center">
                       <button
                         onClick={() => selectAroma(flavor)}
-                        className={`relative flex items-center w-[160px] h-[48px] rounded-md border bg-white px-3 py-1 text-base font-medium transition-all duration-150
+                        className={`relative flex items-center w-[160px] h-[48px]  bg-white px-3 py-1 text-base font-medium transition-all duration-150
                           ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
                           `}
                       >
                         <span className="mx-auto z-10">{flavor}</span>
-                        <div className={`absolute right-0 top-0 h-full w-2 ${bandColor} rounded-tr-md rounded-br-md z-0`}></div>
+                        <div className={`absolute right-0 top-0 h-full w-5 ${bandColor} z-0`}></div>
                         {selected && (
                           <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-[999] pointer-events-none">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@ export default function ProductDetail() {
                     <div key={index} className="relative flex items-center">
                       <button
                         onClick={() => selectSize(size)}
-                        className={`relative w-[140px] h-[60px] rounded-md border bg-white px-2 py-1 flex flex-col items-center justify-center transition-all duration-150
+                        className={`relative w-[140px] h-[60px]  bg-white px-2 py-1 flex flex-col items-center justify-center transition-all duration-150
                           ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
                           `}
                       >
