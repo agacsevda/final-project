@@ -8,9 +8,7 @@ interface CartItem {
   quantity: number
   photo_src: string
   selectedAroma?: string
-  selectedSize?: {
-    total_services: number
-  }
+  selectedSize?: string
 }
 
 interface CartStore {

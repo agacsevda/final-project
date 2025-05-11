@@ -1,6 +1,7 @@
 import type { ProductDetail, ProductDetailResponse } from "@/types";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCartStore } from "@/lib/store/cartStore";
 import {
   Accordion,
   AccordionContent,
@@ -17,7 +18,9 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const { productSlug } = useParams();
+  const addItem = useCartStore((state) => state.addItem);
   
   // Varsayılan bir ProductVariant oluşturuyoruz, böylece hook içinde null kontrolü yapmaya gerek kalmaz
   const emptyVariant: ProductVariant = {
@@ -73,6 +76,20 @@ export default function ProductDetail() {
       fetchProductDetail();
     }
   }, [productSlug]);
+
+  const handleAddToCart = () => {
+    if (selectedVariant && product) {
+      addItem({
+        id: selectedVariant.id,
+        name: product.name,
+        price: selectedVariant.price.discounted_price || selectedVariant.price.total_price,
+        quantity: quantity,
+        photo_src: selectedVariant.photo_src,
+        selectedAroma: selectedVariant.aroma,
+        selectedSize: `${selectedVariant.size.gram}G`
+      });
+    }
+  };
 
   // Eğer ürün yükleniyorsa yükleniyor mesajı göster
   if (loading) {
@@ -202,7 +219,7 @@ export default function ProductDetail() {
             </div>
           )}
 
-          {/* Price + Cart - Sadece seçili variant varsa göster */}
+          {/* Price + Cart */}
           <div className="mt-4 flex items-center justify-between">
             <div>
               {selectedVariant && (
@@ -219,14 +236,27 @@ export default function ProductDetail() {
               )}
             </div>
             <div className="flex items-center gap-2">
-              <button className="h-8 w-8 rounded bg-gray-200">-</button>
-              <span>1</span>
-              <button className="h-8 w-8 rounded bg-gray-200">+</button>
+              <button 
+                onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                className="h-8 w-8 rounded bg-gray-200"
+              >
+                -
+              </button>
+              <span>{quantity}</span>
+              <button 
+                onClick={() => setQuantity(prev => prev + 1)}
+                className="h-8 w-8 rounded bg-gray-200"
+              >
+                +
+              </button>
             </div>
           </div>
 
           {/* Add to cart */}
-          <button className="mt-4 rounded-xl bg-black py-3 text-white transition hover:bg-gray-800">
+          <button 
+            onClick={handleAddToCart}
+            className="mt-4 rounded-xl bg-black py-3 text-white transition hover:bg-gray-800"
+          >
             SEPETE EKLE
           </button>
 

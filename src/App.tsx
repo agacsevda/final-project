@@ -9,6 +9,7 @@ import FrequentlyAskedQuestions from "./components/layout/FrequentlyAskedQuestio
 import { loader } from "./components/home/ProductCard";
 import CategoryPage from "./components/layout/CategoryPage";
 import Cart from "@/pages/Cart";
+import { CartProvider } from "@/context/CartContext";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +56,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  );
 }
 
 export default App;
