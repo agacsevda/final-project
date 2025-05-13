@@ -173,7 +173,7 @@ export default function ProductDetail() {
                         <span className="mx-auto z-10">{flavor}</span>
                         <div className={`absolute right-0 top-0 h-full w-5 ${bandColor} z-0`}></div>
                         {selected && (
-                          <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-[999] pointer-events-none">
+                          <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-[20] pointer-events-none">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M4 8.5L7 11.5L12 5.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>

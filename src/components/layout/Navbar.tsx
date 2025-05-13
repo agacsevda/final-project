@@ -7,7 +7,7 @@ import {
   faBasketShopping,
   faUser,
   faTrash,
-  faSquareCaretRight
+  faSquareCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Menu, ShoppingCart } from "lucide-react";
@@ -51,7 +51,10 @@ import { PHOTO_URL } from "@/components/layout/AllProducts";
 const Navbar = () => {
   const { items, removeItem, updateQuantity } = useCartStore();
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
   return (
     <nav className="border-b">
@@ -73,10 +76,13 @@ const Navbar = () => {
                   <Input
                     width={"100%"}
                     type="text"
-                    placeholder="Aramak İstediğiniz Ürün"
-                    className="w-full rounded-full bg-gray-100 py-3 pl-10 pr-4 text-sm placeholder:text-gray-500"
+                    placeholder="Aramak istediğiniz ürünü yazınız"
+                    className="flex-1 rounded-l-md border border-gray-300 px-4 py-2 text-sm placeholder-gray-500 focus:outline-none"
                   />
-                  <Button type="submit" className="w-full">
+                  <Button
+                    type="submit"
+                    className="rounded-r-md bg-gray-500 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-600"
+                  >
                     Ara
                   </Button>
                 </div>
@@ -108,13 +114,17 @@ const Navbar = () => {
         {/* Desktop Search and Auth */}
         <div className="hidden items-center gap-4 md:flex">
           <div className="relative w-full max-w-sm">
-            <Input type="email" placeholder="Aradığınız Ürünü Yazın" />
-            <Button
+            <input
+              type="text"
+              placeholder="Lütfen bir ürün arayınız"
+              className="flex-1 rounded-l-md border border-gray-300 px-4 py-2 text-sm placeholder-gray-500 focus:outline-none"
+            />
+            <button
               type="submit"
-              className="absolute right-[-2px] top-1/2 h-8 w-8 -translate-y-1/2 px-8"
+              className="rounded-r-md bg-gray-500 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-600"
             >
               Ara
-            </Button>
+            </button>
           </div>
           <div>
             <DropdownMenu>
@@ -131,7 +141,9 @@ const Navbar = () => {
               <DropdownMenuContent className="w-44 text-center">
                 <DropdownMenuLabel></DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-center">Üye Girişi</DropdownMenuItem>
+                <DropdownMenuItem className="text-center">
+                  Üye Girişi
+                </DropdownMenuItem>
                 <DropdownMenuItem>Üye Ol</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -156,29 +168,42 @@ const Navbar = () => {
                   Sepetim
                 </Button>
               </SheetTrigger>
-              <SheetContent className="p-0 w-[400px] max-w-full flex flex-col h-full">
+              <SheetContent className="flex h-full w-[400px] max-w-full flex-col p-0">
                 {/* Başlık */}
-                <div className="text-center font-bold text-lg py-3 border-b bg-white sticky top-0 z-10">SEPETİM</div>
+                <div className="sticky top-0 z-10 border-b bg-white py-3 text-center text-lg font-bold">
+                  SEPETİM
+                </div>
                 {/* Ürünler */}
-                <div className="flex-1 min-h-[200px] bg-[#fafafa] overflow-y-auto">
+                <div className="min-h-[200px] flex-1 overflow-y-auto bg-[#fafafa]">
                   {items.length === 0 ? (
-                    <div className="text-center text-gray-500 mt-20">Sepetinizde ürün bulunmamaktadır.</div>
+                    <div className="mt-20 text-center text-gray-500">
+                      Sepetinizde ürün bulunmamaktadır.
+                    </div>
                   ) : (
                     <div className="divide-y divide-gray-200">
                       {items.map((item) => (
-                        <div key={item.id} className="flex items-center px-2 py-4 bg-white">
+                        <div
+                          key={item.id}
+                          className="flex items-center bg-white px-2 py-4"
+                        >
                           <img
                             src={PHOTO_URL + item.photo_src}
                             alt={item.name}
-                            className="h-14 w-14 object-contain rounded mr-3 border"
+                            className="mr-3 h-14 w-14 rounded border object-contain"
                           />
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-sm">{item.name}</div>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-sm font-semibold">
+                              {item.name}
+                            </div>
                             {item.selectedAroma && (
-                              <div className="text-xs text-gray-500">{item.selectedAroma}</div>
+                              <div className="text-xs text-gray-500">
+                                {item.selectedAroma}
+                              </div>
                             )}
                             {item.selectedSize && (
-                              <div className="text-xs text-gray-500">{item.selectedSize.total_services}gr</div>
+                              <div className="text-xs text-gray-500">
+                                {item.selectedSize.total_services}gr
+                              </div>
                             )}
                           </div>
                           <div className="flex items-center gap-2">
@@ -190,20 +215,38 @@ const Navbar = () => {
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
                             <button
-                              onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                              className="border rounded w-7 h-7 flex items-center justify-center text-lg"
+                              onClick={() =>
+                                updateQuantity(
+                                  item.id,
+                                  Math.max(1, item.quantity - 1),
+                                )
+                              }
+                              className="flex h-7 w-7 items-center justify-center rounded border text-lg"
                             >
                               -
                             </button>
-                            <span className="w-6 text-center">{item.quantity}</span>
+                            <span className="w-6 text-center">
+                              {item.quantity}
+                            </span>
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="border rounded w-7 h-7 flex items-center justify-center text-lg"
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                              className="flex h-7 w-7 items-center justify-center rounded border text-lg"
                             >
                               +
                             </button>
                           </div>
-                          <div className="ml-4 font-bold whitespace-nowrap text-lg">{item.price * item.quantity} TL</div>
+                          <div className="ml-4 whitespace-nowrap text-lg font-bold">
+                            {(item.price * item.quantity).toLocaleString(
+                              "tr-TR",
+                              {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              },
+                            )}{" "}
+                            TL
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -211,13 +254,20 @@ const Navbar = () => {
                 </div>
                 {/* Alt bar */}
                 {items.length > 0 && (
-                  <div className="absolute left-0 right-0 bottom-0 w-full bg-white border-t z-20 shadow-md p-0">
-                    <div className="flex items-center justify-end px-4 pt-2 pb-0">
-                      <div className="text-[11px] font-normal text-black tracking-tight text-right w-full">TOPLAM {total.toFixed(2)} TL</div>
+                  <div className="absolute bottom-0 left-0 right-0 z-20 w-full border-t bg-white p-0 shadow-md">
+                    <div className="flex items-center justify-end px-4 pb-0 pt-2">
+                      <div className="w-full text-right text-[11px] font-normal tracking-tight text-black">
+                        TOPLAM {total.toFixed(2)} TL
+                      </div>
                     </div>
                     <div className="px-4 pb-2 pt-1">
-                      <button className="w-full bg-black text-white rounded py-2 text-xs font-bold flex items-center justify-center gap-1">
-                        DEVAM ET <FontAwesomeIcon icon={faSquareCaretRight} className="text-white" style={{fontSize: '13px'}} />
+                      <button className="flex w-full items-center justify-center gap-1 rounded bg-black py-2 text-xs font-bold text-white">
+                        DEVAM ET{" "}
+                        <FontAwesomeIcon
+                          icon={faSquareCaretRight}
+                          className="text-white"
+                          style={{ fontSize: "13px" }}
+                        />
                       </button>
                     </div>
                   </div>
@@ -245,8 +295,8 @@ const Navbar = () => {
         <Input
           width={"100%"}
           type="text"
-          placeholder="Aramak İstediğiniz Ürün"
-          className="w-full rounded-full bg-gray-100 py-3 pl-10 pr-4 text-sm placeholder:text-gray-500"
+          placeholder="Aradığınız ürünü yazınız"
+          className="mb-2 w-full rounded-full bg-gray-100 py-3 pl-10 pr-4 text-sm placeholder:text-gray-500"
         />
       </div>
 
