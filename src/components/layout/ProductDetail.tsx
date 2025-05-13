@@ -191,7 +191,7 @@ export default function ProductDetail() {
           {productSizes.length > 0 && (
             <div>
               <h3 className="font-semibold text-gray-500 mt-4">BOYUT:</h3>
-              <div className="mt-2 flex gap-4">
+              <div className="mt-2 flex flex-wrap gap-3 md:flex-nowrap">
                 {productSizes.map((size, index) => {
                   const selected = isSelectedSize(size);
                   return (
@@ -202,7 +202,7 @@ export default function ProductDetail() {
                           ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
                           `}
                       >
-                        <span className="text-base font-bold">150G</span>
+                        <span className="text-base font-bold">{size.gram}G</span>
                         <span className="text-xs mt-1">{size.total_services} servis</span>
                         {selected && (
                           <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-20">
@@ -268,7 +268,7 @@ export default function ProductDetail() {
           </div>
           
           {/* Ürün Açıklamaları */}
-          <div>
+          <div >
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
                 <AccordionTrigger>Kullanım</AccordionTrigger>
