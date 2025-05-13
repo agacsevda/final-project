@@ -278,18 +278,22 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Cart Button */}
-        <button className="md:hidden">
-          <div className="relative">
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
-              {totalCount}
-            </span>
-            <FontAwesomeIcon
-              size="sm"
-              icon={faBasketShopping}
-              className="mr-2 text-black"
-            />
-          </div>
-        </button>
+       {/* Mobile Cart Button with Sheet */}
+{/* Mobile Cart Button */}
+<button className="md:hidden">
+  <div className="relative">
+    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
+      {totalCount}
+    </span>
+    <FontAwesomeIcon
+      size="sm"
+      icon={faBasketShopping}
+      className="mr-2 text-black"
+    />
+  </div>
+</button>
+
+
       </div>
       <div className="relative mt-4 md:hidden">
         <Input
