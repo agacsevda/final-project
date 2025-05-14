@@ -8,6 +8,7 @@ import {
   faUser,
   faTrash,
   faSquareCaretRight,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Menu, ShoppingCart } from "lucide-react";
@@ -47,6 +48,7 @@ import {
 
 import { useCartStore } from "@/lib/store/cartStore";
 import { PHOTO_URL } from "@/components/layout/AllProducts";
+import { useState } from "react";
 
 const Navbar = () => {
   const { items, removeItem, updateQuantity } = useCartStore();
@@ -55,6 +57,7 @@ const Navbar = () => {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+  const [open, setOpen] = useState(false);
 
   return (
     <nav className="border-b">
@@ -149,11 +152,12 @@ const Navbar = () => {
             </DropdownMenu>
           </div>
           <div>
-            <Sheet>
+            <Sheet  open={open} onOpenChange={setOpen}>
               <SheetTrigger className="relative inline-block">
                 <Button
                   variant="outline"
                   className="text-md px-4 py-0 text-gray-500"
+                  onClick={() => setOpen(true)}
                 >
                   <div className="relative">
                     <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
@@ -172,6 +176,12 @@ const Navbar = () => {
                 {/* Başlık */}
                 <div className="sticky top-0 z-10 border-b bg-white py-3 text-center text-lg font-bold">
                   SEPETİM
+                               <button
+    className="absolute right-4 top-4 text-gray-500 hover:text-black"
+    onClick={() => setOpen(false)} // Sepeti kapatan fonksiyon
+  >
+    <FontAwesomeIcon icon={faXmark} className="text-xl" />
+  </button>
                 </div>
                 {/* Ürünler */}
                 <div className="min-h-[200px] flex-1 overflow-y-auto bg-[#fafafa]">
@@ -281,9 +291,9 @@ const Navbar = () => {
        {/* Mobile Cart Button with Sheet */}
 {/* Mobile Cart Button */}
 {/* Mobile Cart Button with Sheet */}
-<Sheet>
+<Sheet open={open} onOpenChange={setOpen}>
   <SheetTrigger asChild>
-    <button className="md:hidden">
+    <button className="md:hidden" onClick={() => setOpen(true)}>
       <div className="relative">
         <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
           {totalCount}
@@ -300,6 +310,12 @@ const Navbar = () => {
                 {/* Başlık */}
                 <div className="sticky top-0 z-10 border-b bg-white py-3 text-center text-lg font-bold">
                   SEPETİM
+                  <button
+    className="absolute right-4 top-4 text-gray-500 hover:text-black"
+    onClick={() => setOpen(false)} // Sepeti kapatan fonksiyon
+  >
+    <FontAwesomeIcon icon={faXmark} className="text-xl" />
+  </button>
                 </div>
                 {/* Ürünler */}
                 <div className="min-h-[200px] flex-1 overflow-y-auto bg-[#fafafa]">
