@@ -70,7 +70,7 @@ const Navbar = () => {
                 <Menu size={24} />
               </button>
             </DrawerTrigger>
-            <DrawerContent className="left-0 h-full w-[300px] rounded-none">
+            <DrawerContent className="left-0 h-full w-[300px] rounded-none bg-transparent z-50">
               <DrawerHeader>
                 <DrawerTitle>Menü</DrawerTitle>
               </DrawerHeader>
@@ -151,8 +151,8 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div>
-            <Sheet  open={open} onOpenChange={setOpen}>
+          <div  className="hidden md:block">
+            <Sheet  open={open} onOpenChange={setOpen} >
               <SheetTrigger className="relative inline-block">
                 <Button
                   variant="outline"
@@ -172,7 +172,7 @@ const Navbar = () => {
                   Sepetim
                 </Button>
               </SheetTrigger>
-              <SheetContent className="flex h-full w-[400px] max-w-full flex-col p-0">
+              <SheetContent side="right" className="z-50 flex h-full w-[400px] flex-col p-0 bg-white">
                 {/* Başlık */}
                 <div className="sticky top-0 z-10 border-b bg-white py-3 text-center text-lg font-bold">
                   SEPETİM
