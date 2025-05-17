@@ -86,7 +86,9 @@ export default function ProductDetail() {
         quantity: quantity,
         photo_src: selectedVariant.photo_src,
         selectedAroma: selectedVariant.aroma,
-        selectedSize: `${selectedVariant.size.gram}G`
+        selectedSize: {
+          total_services: selectedVariant.size.gram
+        }
       });
     }
   };
@@ -194,17 +196,19 @@ export default function ProductDetail() {
               <div className="mt-2 flex flex-wrap gap-3 md:flex-nowrap">
                 {productSizes.map((size, index) => {
                   const selected = isSelectedSize(size);
+                   const available = isSizeAvailable(size);
                   return (
                     <div key={index} className="relative flex items-center">
                       <button
                         onClick={() => selectSize(size)}
                         className={`relative w-[140px] h-[60px]  bg-white px-2 py-1 flex flex-col items-center justify-center transition-all duration-150
                           ${selected ? "border-2 border-blue-900" : "border border-gray-300"}
+                          ${!available ? "line-through cursor-not-allowed opacity-50" : "bg-white"}
                           `}
                       >
                         <span className="text-base font-bold">{size.gram}G</span>
                         <span className="text-xs mt-1">{size.total_services} servis</span>
-                        {selected && (
+                        {selected && available && (
                           <span className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full bg-blue-900 border-4 border-white shadow-lg z-20">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M4 8.5L7 11.5L12 5.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

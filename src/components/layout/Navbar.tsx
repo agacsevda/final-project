@@ -212,7 +212,7 @@ const Navbar = () => {
                             )}
                             {item.selectedSize && (
                               <div className="text-xs text-gray-500">
-                                {item.selectedSize.total_services}gr
+                                {item.selectedSize.total_services}G
                               </div>
                             )}
                           </div>
@@ -346,7 +346,7 @@ const Navbar = () => {
                             )}
                             {item.selectedSize && (
                               <div className="text-xs text-gray-500">
-                                {item.selectedSize.total_services}gr
+                                {item.selectedSize.total_services}G
                               </div>
                             )}
                           </div>

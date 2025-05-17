@@ -19,40 +19,41 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: loader
+        loader: loader,
       },
       {
         path: "hakkimizda",
-        element: <About />
+        element: <About />,
       },
       {
         path: "iletisim",
-        element: <Contact />
+        element: <Contact />,
       },
       {
         path: "tumurunler/AllProducts",
         element: <AllProducts />,
-        loader: linksLoader
+        loader: linksLoader,
       },
       {
         path: "ProductDetail/:productSlug",
-        element: <ProductDetail />
+        element: <ProductDetail />,
       },
       {
         path: "FrequentlyAskedQuestions",
-        element: <FrequentlyAskedQuestions />
+        element: <FrequentlyAskedQuestions />,
       },
       {
         path: "/products/main_category/:mainCategory",
         element: <CategoryPage />,
-        loader: linksLoader
+        loader: linksLoader,
       },
       {
         path: "sepetim",
-        element: <Cart />
-      }
-    ]
-  }
+        element: <Cart />,
+      },
+     
+    ],
+  },
 ]);
 
 function App() {

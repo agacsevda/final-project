@@ -93,9 +93,10 @@ export function useProductVariants(productVariants: ProductVariant[]) {
             return false;
         }
         
-        const aromaSizes = getAromaSizes(selectedVariant.aroma);
-        
-        return !aromaSizes.find((aromaSize) => isSameSize(aromaSize, size));
+          const aromaSizes = getAromaSizes(selectedVariant.aroma);
+
+    // Size mevcutsa true dönmeli
+    return aromaSizes.some((aromaSize) => isSameSize(aromaSize, size));
     }
 
     function isSelectedAroma(aroma: string) {
