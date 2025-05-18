@@ -10,6 +10,7 @@ import { loader } from "./components/home/ProductCard";
 import CategoryPage from "./components/layout/CategoryPage";
 import Cart from "@/pages/Cart";
 import { CartProvider } from "@/context/CartContext";
+import OrderPage from "./components/layout/OrderPage";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "sepetim",
         element: <Cart />,
+      },
+      {
+        path: "/order",
+        element: <OrderPage />,
       },
      
     ],

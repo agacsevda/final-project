@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavigationMenuDemo } from "@/components/shared/Category";
 import { Input } from "@/components/ui/input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -58,7 +58,12 @@ const Navbar = () => {
     0,
   );
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const goToOrder = () => {
+    setOpen(false);
+    navigate("/order");
+    console.log("order");
+  };
   return (
     <nav className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-10">
@@ -405,7 +410,7 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className="px-4 pb-2 pt-1">
-                      <button className="flex w-full items-center justify-center gap-1 rounded bg-black py-2 text-xs font-bold text-white">
+                      <button onClick={goToOrder} className="flex w-full items-center justify-center gap-1 rounded bg-black py-2 text-xs font-bold text-white">
                         DEVAM ET{" "}
                         <FontAwesomeIcon
                           icon={faSquareCaretRight}

@@ -1,10 +1,15 @@
 import { useCartStore } from "@/lib/store/cartStore";
 import { PHOTO_URL } from "@/components/layout/AllProducts";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity } = useCartStore();
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+  const navigate = useNavigate();
+  const goToOrder = () => {
+    navigate("/order");
+    console.log("order");
+  };
   return (
     <div className="relative min-h-[400px] bg-[#fafafa] flex flex-col h-full">
       {/* Başlık */}
@@ -64,8 +69,8 @@ export default function Cart() {
         <div className="absolute bottom-0 left-0 w-full bg-white border-t z-10">
           <div className="flex items-center justify-between px-4 py-3">
             <div className="text-xs font-semibold">TOPLAM {total} TL</div>
-            <button className="bg-black text-white rounded w-56 py-3 font-bold flex items-center justify-center gap-2">
-              DEVAM ET <span className="text-lg">▶</span>
+            <button onClick={goToOrder} className="bg-black text-white rounded w-56 py-3 font-bold flex items-center justify-center gap-2" >
+              DEVAM ETtttt <span className="text-lg">▶</span>
             </button>
           </div>
         </div>
