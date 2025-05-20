@@ -122,8 +122,8 @@ const OrderPage = () => {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="adres" className="border-b">
               <AccordionTrigger className="text-lg font-semibold gap-2 flex items-center">
-                <span className="text-base font-bold">①</span>
-                <span>Adres</span>
+                <span className="text-base font-normal text text-xl">①</span>
+                <span className='text-left flex-1'>Adres</span>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-2">
@@ -153,8 +153,8 @@ const OrderPage = () => {
             </AccordionItem>
             <AccordionItem value="kargo" className="border-b">
               <AccordionTrigger className="text-lg font-semibold gap-2 flex items-center">
-                <span className="text-base font-bold">②</span>
-                <span>Kargo</span>
+                <span className="text-base font-normal text text-xl">②</span>
+                <span className='text-left flex-1'>Kargo</span>
               </AccordionTrigger>
               <AccordionContent>
                 {/* Kargo Seçenekleri */}
@@ -163,8 +163,8 @@ const OrderPage = () => {
             </AccordionItem>
             <AccordionItem value="odeme">
               <AccordionTrigger className="text-lg font-semibold gap-2 flex items-center">
-                <span className="text-base font-bold">③</span>
-                <span>Ödeme</span>
+                <span className="text-base font-normal text text-xl">③</span>
+                <span className='text-left flex-1'>Ödeme</span>
               </AccordionTrigger>
               <AccordionContent>
                 {/* Basit Ödeme Formu */}
