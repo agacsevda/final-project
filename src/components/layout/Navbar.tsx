@@ -59,6 +59,7 @@ const Navbar = () => {
   );
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const totalproducts = items.length;
   const goToOrder = () => {
     setOpen(false);
     navigate("/order");
@@ -166,7 +167,7 @@ const Navbar = () => {
                 >
                   <div className="relative">
                     <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
-                      {totalCount}
+                      {totalproducts}
                     </span>
                     <FontAwesomeIcon
                       size="sm"
