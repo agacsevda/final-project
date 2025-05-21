@@ -44,16 +44,16 @@ export const linksLoader = async () => {
 
 function AllProducts() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [categoryName, setCategoryName] = useState<string | null>(null);
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch(`${BASE_URL}/products?limit=20&offset=0`);
       const data = await response.json() as ApiResponse;
+      setAllProducts(data.data.results);
       setProducts(data.data.results);
     };
     fetchProducts();
@@ -61,21 +61,31 @@ function AllProducts() {
     const handleLocationChange = () => {
       const params = new URLSearchParams(window.location.search);
       const title = params.get("name");
+      const search = params.get("search");
       console.log("URL changed, new title:", title);
       setCategoryName(title);
+      if (search) {
+        setSearchTerm(search);
+      }
     };
 
-    // İlk yüklemede çalıştır
     handleLocationChange();
-
-    // URL değişikliklerini dinle
     window.addEventListener("popstate", handleLocationChange);
-
-    // Cleanup
     return () => {
       window.removeEventListener("popstate", handleLocationChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setProducts(allProducts);
+    } else {
+      const filtered = allProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setProducts(filtered);
+    }
+  }, [searchTerm, allProducts]);
 
   return (
     <div className="mx-auto my-10 max-w-screen-xl px-4 py-8">
