@@ -13,6 +13,8 @@ import Cart from "@/pages/Cart";
 import { CartProvider } from "@/context/CartContext";
 import OrderPage from "./components/layout/OrderPage";
 import SuccessPage from "@/pages/Success";
+import LoginForm from "./components/layout/authtabs/LoginForm";
+import RegisterForm from "./components/layout/authtabs/RegisterForm";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
       {
         path: "sepetim",
         element: <Cart />,
+      },
+      {
+        path: "auth/login",
+        element: <LoginForm />,
+      },
+      {
+        path: "auth/register",
+        element: <RegisterForm />,
       },
     ],
   },

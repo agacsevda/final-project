@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
 
 const UserMenu = () => {
   return (
@@ -27,10 +29,12 @@ const UserMenu = () => {
         <DropdownMenuContent className="w-44 text-center">
           <DropdownMenuLabel></DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-center">
-            Üye Girişi
+          <DropdownMenuItem className="text-center" asChild>
+            <Link to="/auth/login">Üye Girişi</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Üye Ol</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/auth/register">Üye Ol</Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
