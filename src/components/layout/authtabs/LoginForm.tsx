@@ -16,7 +16,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md min-h-screen max-h-[500px]">
       <h2 className="text-2xl font-bold mb-6 text-center">Üye Girişi</h2>
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
         <div className="space-y-2">

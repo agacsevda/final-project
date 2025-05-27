@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "@/lib/store/cartStore";
-import { PHOTO_URL } from "./AllProducts";
+import { PHOTO_URL, BASE_URL } from "./AllProducts";
 import {
   Accordion,
   AccordionContent,
@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "../ui/input";
 
-const AddressForm = () => {
+const AddressForm = ({ onSave }: { onSave: (address: any) => void }) => {
   const [form, setForm] = useState({
     title: "",
     name: "",
@@ -42,6 +42,34 @@ const AddressForm = () => {
     district: "",
     phone: "",
   });
+  const [cities, setCities] = useState<string[]>([]);
+  const [districts, setDistricts] = useState<string[]>([]);
+  const [loadingCities, setLoadingCities] = useState(false);
+  const [loadingDistricts, setLoadingDistricts] = useState(false);
+
+  useEffect(() => {
+    setLoadingCities(true);
+    fetch(`${BASE_URL}/world/region?limit=100&offset=0&country-name=turkey`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCities(data.data.results.map((item: any) => item.name));
+      })
+      .finally(() => setLoadingCities(false));
+  }, []);
+
+  useEffect(() => {
+    if (form.city) {
+      setLoadingDistricts(true);
+      fetch(`${BASE_URL}/world/subregion?limit=30&offset=0&region-name=${encodeURIComponent(form.city)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDistricts(data.data.results.map((item: any) => item.name));
+        })
+        .finally(() => setLoadingDistricts(false));
+    } else {
+      setDistricts([]);
+    }
+  }, [form.city]);
 
   const handleChange = (field: string, value: string) => {
     setForm({ ...form, [field]: value });
@@ -49,10 +77,8 @@ const AddressForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    // Buraya API isteği vs. ekleyebilirsiniz
+    onSave(form);
   };
-  
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-3xl space-y-4 p-6">
@@ -79,24 +105,24 @@ const AddressForm = () => {
         onChange={(e) => handleChange("address", e.target.value)}
       />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Select onValueChange={(value) => handleChange("city", value)}>
+        <Select onValueChange={(value) => handleChange("city", value)} value={form.city}>
           <SelectTrigger>
-            <SelectValue placeholder="İl *" />
+            <SelectValue placeholder={loadingCities ? "Yükleniyor..." : "İl *"} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="istanbul">İstanbul</SelectItem>
-            <SelectItem value="ankara">Ankara</SelectItem>
-            <SelectItem value="izmir">İzmir</SelectItem>
+            {cities.map((city) => (
+              <SelectItem key={city} value={city}>{city}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
-        <Select onValueChange={(value) => handleChange("district", value)}>
+        <Select onValueChange={(value) => handleChange("district", value)} value={form.district} disabled={!form.city}>
           <SelectTrigger>
-            <SelectValue placeholder="İlçe *" />
+            <SelectValue placeholder={loadingDistricts ? "Yükleniyor..." : "İlçe *"} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="besiktas">Beşiktaş</SelectItem>
-            <SelectItem value="cankaya">Çankaya</SelectItem>
-            <SelectItem value="konak">Konak</SelectItem>
+            {districts.map((district) => (
+              <SelectItem key={district} value={district}>{district}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -130,16 +156,13 @@ const OrderPage = () => {
   );
   const SHEET_SIDES = ["top", "right", "bottom", "left"];
   const [open, setOpen] = useState(false);
+  const [savedAddress, setSavedAddress] = useState<any>(null);
 
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Burada normalde ödeme işlemi yapılacak
-    // Başarılı ödeme sonrası:
-    clearCart(); // Sepeti temizle
-    localStorage.removeItem("cart-storage"); // Local storage'dan sepeti temizle
-    // Adres bilgilerini temizle
+    clearCart();
+    localStorage.removeItem("cart-storage");
     localStorage.removeItem("shipping-address");
-    // Başarılı ödeme sonrası yönlendirme
     navigate("/success");
   };
 
@@ -185,7 +208,10 @@ const OrderPage = () => {
                           Lütfen adres bilgilerinizi giriniz.
                         </SheetDescription>
                       </SheetHeader>
-                      <AddressForm />
+                      <AddressForm onSave={(address) => {
+                        setSavedAddress(address);
+                        setOpen(false);
+                      }} />
                       <SheetFooter>
                         <SheetClose asChild></SheetClose>
                       </SheetFooter>
@@ -194,7 +220,18 @@ const OrderPage = () => {
                 </div>
                 {/* Adres Formu veya Bilgisi */}
                 <div className="text-gray-500">
-                  Adres bilgisi burada olacak.
+                  {savedAddress ? (
+                    <div className="border rounded-lg p-4 mt-4">
+                      <div className="font-bold text-lg flex items-center gap-2">
+                        <span className="rounded-full border w-5 h-5 flex items-center justify-center">○</span>
+                        {savedAddress.title}
+                      </div>
+                      <div>{savedAddress.address}, {savedAddress.city}/{savedAddress.district}</div>
+                      <div className="text-xs text-gray-400 mt-1">Alıcı: {savedAddress.name} {savedAddress.surname}</div>
+                    </div>
+                  ) : (
+                    "Adres bilgisi burada olacak."
+                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>

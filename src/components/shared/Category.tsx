@@ -53,10 +53,7 @@ const categories = [
       { href: "/#" },
     ],
   },
-  {
-    title: "TÜM ÜRÜNLER",
-    items: [],
-  },
+ 
 ];
 
 export function NavigationMenuDemo() {
@@ -98,6 +95,11 @@ export function NavigationMenuDemo() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
             ))}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-black text-white uppercase">
+                <Link to="/tumurunler/AllProducts">TÜM ÜRÜNLER</Link>
+              </NavigationMenuTrigger>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
         <button className="text-white md:hidden" onClick={toggleMenu}>

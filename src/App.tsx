@@ -15,6 +15,7 @@ import OrderPage from "./components/layout/OrderPage";
 import SuccessPage from "@/pages/Success";
 import LoginForm from "./components/layout/authtabs/LoginForm";
 import RegisterForm from "./components/layout/authtabs/RegisterForm";
+import { Toaster } from "@/components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ function App() {
   return (
     <CartProvider>
       <RouterProvider router={router} />
+      <Toaster />
     </CartProvider>
   );
 }
