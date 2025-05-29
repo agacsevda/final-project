@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCartStore } from "@/lib/store/cartStore";
 import { PHOTO_URL, BASE_URL } from "./AllProducts";
 import {
@@ -177,9 +177,9 @@ const OrderPage = () => {
         {/* Sol Kolon */}
         <div className="md:col-span-1">
           <div className="mb-6 flex items-center justify-between">
-            <div className="text-2xl font-extrabold tracking-tight">
+            <Link to="/" className="text-2xl font-extrabold tracking-tight">
               OJS NUTRITION
-            </div>
+            </Link>
             <a href="#" className="text-sm font-semibold text-blue-700">
               Üye Ol
             </a>
@@ -221,7 +221,6 @@ const OrderPage = () => {
                     </SheetContent>
                   </Sheet>
                 </div>
-                {/* Adres Formu veya Bilgisi */}
                 <div className="text-gray-500">
                   {savedAddress ? (
                     <div className="border rounded-lg p-4 mt-4">
@@ -244,15 +243,13 @@ const OrderPage = () => {
                 <span className="flex-1 text-left">Kargo</span>
               </AccordionTrigger>
               <AccordionContent>
-                {/* Kargo Seçenekleri */}
                 <div className="text-gray-500">
                   {" "}
                   <button
                     type="button"
                     className="w-full rounded bg-black py-2 font-semibold text-white"
                     onClick={() => {
-                      setAccordionValue("odeme"); // accordion'u aç
-                      // İsteğe bağlı: scroll ile aşağı kaydır
+                      setAccordionValue("odeme");
                       const element = document.getElementById("payment-form");
                       if (element) {
                         element.scrollIntoView({ behavior: "smooth" });
@@ -270,7 +267,6 @@ const OrderPage = () => {
                 <span className="flex-1 text-left">Ödeme</span>
               </AccordionTrigger>
               <AccordionContent>
-                {/* Basit Ödeme Formu */}
                 <form
                   id="payment-form"
                   onSubmit={handlePaymentSubmit}
@@ -353,7 +349,6 @@ const OrderPage = () => {
               </div>
             ))}
           </div>
-          {/* Toplam */}
           <div className="mt-8 flex flex-col items-end border-t pt-4">
             <div className="mb-2 flex w-full justify-between">
               <span className="text-gray-600">Ara Toplam</span>
