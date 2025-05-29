@@ -34,7 +34,11 @@ type AddressFormValues = {
   phone: string
 }
 
-export function AddressForm() {
+interface AddressFormProps {
+  onClose?: () => void
+}
+
+export function AddressForm({ onClose }: AddressFormProps) {
   const form = useForm<AddressFormValues>({
     defaultValues: {
       title: "",
@@ -50,6 +54,7 @@ export function AddressForm() {
   function onSubmit(data: AddressFormValues) {
     console.log("Form data:", data)
     alert("Adres kaydedildi!")
+    onClose?.()
   }
 
   return (

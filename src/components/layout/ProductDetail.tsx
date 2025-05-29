@@ -1,7 +1,7 @@
 import type { ProductDetail, ProductDetailResponse } from "@/types";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
+import { useCartStore } from "@/lib/store/cartStore";
 import {
   Accordion,
   AccordionContent,
@@ -20,7 +20,7 @@ export default function ProductDetail() {
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const { productSlug } = useParams();
-  const { addToCart } = useCart();
+  const { addItem } = useCartStore();
   
   // Varsayılan bir ProductVariant oluşturuyoruz, böylece hook içinde null kontrolü yapmaya gerek kalmaz
   const emptyVariant: ProductVariant = {
@@ -79,15 +79,18 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     if (selectedVariant && product && selectedVariant.size.gram) {
-      addToCart({
+      addItem({
         id: selectedVariant.id,
         name: product.name,
         price: selectedVariant.price.discounted_price || selectedVariant.price.total_price,
         quantity: quantity,
         photo_src: selectedVariant.photo_src,
         selectedAroma: selectedVariant.aroma,
-        selectedSize: selectedVariant.size.gram.toString()
+        selectedSize: { total_services: selectedVariant.size.gram }
       });
+      console.log("Ürün sepete eklendi!");
+    } else {
+      console.log("Ürün veya varyant eksik!");
     }
   };
 

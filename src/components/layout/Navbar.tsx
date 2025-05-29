@@ -23,10 +23,8 @@ const navbar = () => {
             <img src="/logo_siyah.jpg" alt="" />
           </Link>
         </div>
-        <div className="hidden md:block">
-          <SearchBar onSearchChange={handleSearchChange} />
-        </div>
         <div className="flex items-center gap-4">
+          <SearchBar onSearchChange={handleSearchChange} />
           <UserMenu />
           <CartSheet />
         </div>

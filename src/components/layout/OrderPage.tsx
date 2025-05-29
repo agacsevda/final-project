@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "../ui/input";
 
-const AddressForm = ({ onSave }: { onSave: (address: any) => void }) => {
+const AddressForm = ({ onSave, onClose }: { onSave: (address: any) => void; onClose: () => void }) => {
   const [form, setForm] = useState({
     title: "",
     name: "",
@@ -78,6 +78,7 @@ const AddressForm = ({ onSave }: { onSave: (address: any) => void }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(form);
+    onClose();
   };
 
   return (
@@ -197,7 +198,7 @@ const OrderPage = () => {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-2">
-                  <Sheet>
+                  <Sheet open={open} onOpenChange={setOpen}>
                     <SheetTrigger asChild>
                       <Button variant="outline">Yeni Adres Ekle</Button>
                     </SheetTrigger>
@@ -208,10 +209,12 @@ const OrderPage = () => {
                           Lütfen adres bilgilerinizi giriniz.
                         </SheetDescription>
                       </SheetHeader>
-                      <AddressForm onSave={(address) => {
-                        setSavedAddress(address);
-                        setOpen(false);
-                      }} />
+                      <AddressForm
+                        onSave={(address) => {
+                          setSavedAddress(address);
+                        }}
+                        onClose={() => setOpen(false)}
+                      />
                       <SheetFooter>
                         <SheetClose asChild></SheetClose>
                       </SheetFooter>

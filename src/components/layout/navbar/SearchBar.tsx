@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { BASE_URL, PHOTO_URL } from "../AllProducts";
@@ -31,12 +31,17 @@ interface Product {
 
 const SearchBar = ({ isMobile = false, onSearchChange }: SearchBarProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [showResults, setShowResults] = useState(false);
   const debouncedSearch = useDebounce(searchValue, 300);
 
-
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setSearchValue("");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     handleSearchResults();
@@ -93,7 +98,10 @@ const SearchBar = ({ isMobile = false, onSearchChange }: SearchBarProps) => {
             <li 
               key={product.id}
               className="flex items-center gap-4 border rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition"
-                onClick={() => navigate(`/ProductDetail/${product.slug}`)}  
+              onClick={() => {
+                setShowResults(false);
+                navigate(`/ProductDetail/${product.slug}`);
+              }}  
             >
               <div className="flex-shrink-0">
                 <img
