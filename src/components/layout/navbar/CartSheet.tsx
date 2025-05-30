@@ -57,68 +57,57 @@ const CartSheet = ({ isMobile = false }: CartSheetProps) => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center bg-white px-2 py-4"
+                className="flex flex-col bg-white px-2 py-4 border-b"
               >
-                <img
-                  src={PHOTO_URL + item.photo_src}
-                  alt={item.name}
-                  className="mr-3 h-14 w-14 rounded border object-contain"
-                />
-                <div className="min-w-0 flex-1">
-                  <div className="text-sm font-semibold">
-                    {item.name}
+                <div className="flex items-center">
+                  <img
+                    src={PHOTO_URL + item.photo_src}
+                    alt={item.name}
+                    className="mr-3 h-14 w-14 rounded border object-contain"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm font-semibold truncate max-w-[120px]">
+                        {item.name}
+                      </div>
+                      <div className="flex items-center gap-2 ml-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                          className="flex h-7 w-7 items-center justify-center rounded border text-lg"
+                        >
+                          -
+                        </button>
+                        <span className="w-6 text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="flex h-7 w-7 items-center justify-center rounded border text-lg"
+                        >
+                          +
+                        </button>
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="text-gray-400 hover:text-red-500 ml-2"
+                          title="Kaldır"
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 mt-1 text-xs text-gray-500">
+                      {item.selectedAroma && <span>{item.selectedAroma}</span>}
+                      {item.selectedSize && <span>{item.selectedSize.total_services}G</span>}
+                    </div>
                   </div>
-                  {item.selectedAroma && (
-                    <div className="text-xs text-gray-500">
-                      {item.selectedAroma}
-                    </div>
-                  )}
-                  {item.selectedSize && (
-                    <div className="text-xs text-gray-500">
-                      {item.selectedSize.total_services}G
-                    </div>
-                  )}
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    className="text-gray-400 hover:text-red-500"
-                    title="Kaldır"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                  <button
-                    onClick={() =>
-                      updateQuantity(
-                        item.id,
-                        Math.max(1, item.quantity - 1),
-                      )
-                    }
-                    className="flex h-7 w-7 items-center justify-center rounded border text-lg"
-                  >
-                    -
-                  </button>
-                  <span className="w-6 text-center">
-                    {item.quantity}
-                  </span>
-                  <button
-                    onClick={() =>
-                      updateQuantity(item.id, item.quantity + 1)
-                    }
-                    className="flex h-7 w-7 items-center justify-center rounded border text-lg"
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="ml-4 whitespace-nowrap text-lg font-bold">
-                  {(item.price * item.quantity).toLocaleString(
-                    "tr-TR",
-                    {
+                <div className="flex justify-end mt-2">
+                  <div className="whitespace-nowrap text-lg font-bold">
+                    {(item.price * item.quantity).toLocaleString("tr-TR", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    },
-                  )}{" "}
-                  TL
+                    })} TL
+                  </div>
                 </div>
               </div>
             ))}

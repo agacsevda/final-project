@@ -89,7 +89,15 @@ const SearchBar = ({ isMobile = false, onSearchChange }: SearchBarProps) => {
   };
 
   const renderSearchResults = () => {
-    if (!showResults || searchResults.length === 0) return null;
+    if (!showResults) return null;
+
+    if (searchResults.length === 0) {
+      return (
+        <div className="absolute left-0 mt-10 min-w-[350px] max-w-[500px] rounded-lg bg-white shadow-lg p-8 z-50 flex items-center justify-center">
+          <span className="text-center text-lg text-gray-700">{`'${searchValue}' adında bir ürün bulunamadı`}</span>
+        </div>
+      );
+    }
 
     return (
       <div className="absolute left-0 mt-10 min-w-[350px] max-w-[500px] rounded-lg bg-white shadow-lg p-4 z-50">

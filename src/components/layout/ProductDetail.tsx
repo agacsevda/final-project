@@ -110,7 +110,7 @@ export default function ProductDetail() {
       <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-6 rounded-2xl p-4 md:flex-row">
         {/* Product Image */}
         <div className="flex justify-center md:w-1/2">
-          <div className="sticky top-20 self-start rounded-xl p-4">
+          <div className="sticky top-32 self-start rounded-xl p-6 bg-white shadow-md border" style={{ marginTop: '12px' }}>
             <img
               src={selectedVariant && selectedVariant.photo_src ? PHOTO_URL + selectedVariant.photo_src : "/tumurunlerimages/whey-protein.png"}
               alt={product.name}
