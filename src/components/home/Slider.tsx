@@ -73,28 +73,27 @@ function Slider() {
           <div className="blaze-track">
             <div className="blaze-slide">
               <div className="flex h-40 items-center justify-center rounded bg-gray-200">
-                03/05/24 → 03/05/24 Beğendim gayet güzeldi Ürün gayet güzel ama
-                ekşiliği bi süreden sonra bayabiliyor insanı teşekkürler.
+                03/05/24 → 03/05/24 Beğendim gayet güzeldi Ürün gayet güzel ama ekşiliği bi süreden sonra bayabiliyor.
               </div>
             </div>
             <div className="blaze-slide">
               <div className="flex h-40 items-center justify-center rounded bg-gray-200">
-                Slide 2
+                12/04/24 → 15/04/24 Hızlı kargo, güzel paketleme. Ürünü uzun süredir kullanıyorum, memnunum.
               </div>
             </div>
             <div className="blaze-slide">
               <div className="flex h-40 items-center justify-center rounded bg-gray-200">
-                Slide 3
+                28/03/24 → 29/03/24 Fiyat/performans ürünü. Tadı ve çözünürlüğü çok iyi, tekrar alırım.
               </div>
             </div>
             <div className="blaze-slide">
               <div className="flex h-40 items-center justify-center rounded bg-gray-200">
-                Slide 4
+                10/03/24 → 12/03/24 Paketleme harikaydı, ürün taze geldi. Tavsiye ederim.
               </div>
             </div>
             <div className="blaze-slide">
               <div className="flex h-40 items-center justify-center rounded bg-gray-200">
-                Slide 5
+                01/03/24 → 03/03/24 Ürün açıklamalardaki gibi, hızlı teslimat için teşekkürler.
               </div>
             </div>
           </div>

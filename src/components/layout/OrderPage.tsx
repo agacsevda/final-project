@@ -158,18 +158,49 @@ const OrderPage = () => {
   const SHEET_SIDES = ["top", "right", "bottom", "left"];
   const [open, setOpen] = useState(false);
   const [savedAddress, setSavedAddress] = useState<any>(null);
-
-  const handlePaymentSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    clearCart();
-    localStorage.removeItem("cart-storage");
-    localStorage.removeItem("shipping-address");
-    navigate("/success");
-  };
-
   const [accordionValue, setAccordionValue] = useState<string | undefined>(
     "adres",
   );
+  const [paymentType, setPaymentType] = useState("kredi");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
+  const [invoiceSame, setInvoiceSame] = useState(false);
+  const [isCardBack, setIsCardBack] = useState(false);
+  const [formError, setFormError] = useState("");
+
+  // Sayfa ilk açıldığında ve ödeme adımı açıldığında kart bilgilerini sıfırla
+  useEffect(() => {
+    setCardNumber("");
+    setCardName("");
+    setCardExpiry("");
+    setCardCvc("");
+    setInvoiceSame(false);
+    setIsCardBack(false);
+  }, [accordionValue]);
+
+  const formatCardNumber = (value: string) => value.replace(/[^0-9]/g, "").replace(/(.{4})/g, "$1 ").trim();
+
+  const handlePaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError("");
+    if (paymentType === "kredi") {
+      if (!cardNumber || cardNumber.length < 16 || !cardName || !cardExpiry || !cardCvc || cardCvc.length < 3) {
+        setFormError("Lütfen tüm kart bilgilerini eksiksiz giriniz.");
+        return;
+      }
+    }
+    setIsProcessing(true);
+    setTimeout(() => {
+      setIsProcessing(false);
+      clearCart();
+      localStorage.removeItem("cart-storage");
+      localStorage.removeItem("shipping-address");
+      navigate("/success");
+    }, 2000);
+  };
 
   return (
     <div className="min-h-screen w-full bg-white px-4 md:px-0">
@@ -270,46 +301,152 @@ const OrderPage = () => {
                 <form
                   id="payment-form"
                   onSubmit={handlePaymentSubmit}
-                  className="max-w-sm space-y-4"
+                  className="max-w-md space-y-6"
                 >
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Kart Numarası
-                    </label>
-                    <input
-                      type="text"
-                      className="mt-1 block w-full rounded border px-3 py-2"
-                      placeholder="0000 0000 0000 0000"
-                    />
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700">
-                        Son Kullanma
-                      </label>
-                      <input
-                        type="text"
-                        className="mt-1 block w-full rounded border px-3 py-2"
-                        placeholder="AA/YY"
-                      />
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-semibold text-sm">Ödeme Yöntemi</label>
+                      <div className="flex flex-col gap-3">
+                        <label className={`flex items-center gap-2 border rounded-lg px-4 py-3 cursor-pointer ${paymentType === "kredi" ? "border-blue-600 bg-blue-50" : "border-gray-300"}`}>
+                          <input
+                            type="radio"
+                            name="paymentType"
+                            value="kredi"
+                            checked={paymentType === "kredi"}
+                            onChange={() => setPaymentType("kredi")}
+                            className="accent-blue-600"
+                          />
+                          <span className="font-medium">Kredi Kartı</span>
+                        </label>
+                        <label className={`flex items-center justify-between gap-2 border rounded-lg px-4 py-3 cursor-pointer ${paymentType === "kapida-nakit" ? "border-blue-600 bg-blue-50" : "border-gray-300"}`}>
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="paymentType"
+                              value="kapida-nakit"
+                              checked={paymentType === "kapida-nakit"}
+                              onChange={() => setPaymentType("kapida-nakit")}
+                              className="accent-blue-600"
+                            />
+                            <span className="font-medium">Kapıda Ödeme (Nakit)</span>
+                          </span>
+                          <span className="text-gray-700 font-semibold text-sm">39 TL işlem bedeli</span>
+                        </label>
+                        <label className={`flex items-center justify-between gap-2 border rounded-lg px-4 py-3 cursor-pointer ${paymentType === "kapida-kredi" ? "border-blue-600 bg-blue-50" : "border-gray-300"}`}>
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="paymentType"
+                              value="kapida-kredi"
+                              checked={paymentType === "kapida-kredi"}
+                              onChange={() => setPaymentType("kapida-kredi")}
+                              className="accent-blue-600"
+                            />
+                            <span className="font-medium">Kapıda Ödeme (KK)</span>
+                          </span>
+                          <span className="text-gray-700 font-semibold text-sm">45 TL işlem bedeli</span>
+                        </label>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700">
-                        CVV
-                      </label>
+                    {paymentType === "kredi" && (
+                      <div className="flex flex-col gap-4">
+                        <div className="flex justify-center">
+                          <div className="relative w-[340px] h-[200px] bg-gray-100 rounded-2xl shadow-md flex flex-col items-center justify-center mb-2 transition-transform duration-500" style={{ transform: isCardBack ? 'rotateY(180deg)' : 'rotateY(0deg)', perspective: '1000px' }}>
+                            {/* Ön Yüz */}
+                            <div className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${isCardBack ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} style={{ backfaceVisibility: 'hidden' }}>
+                              {/* Kart Numarası */}
+                              <div className="absolute top-8 left-8 text-lg tracking-widest text-gray-800 font-mono">
+                                {cardNumber ? formatCardNumber(cardNumber) : "5555 5555 5555 5555"}
+                              </div>
+                              {/* İsim Soyisim */}
+                              <div className="absolute bottom-12 left-8 text-base text-gray-700 font-semibold">
+                                {cardName || "İsim Soyisim"}
+                              </div>
+                              {/* Son Kullanma Tarihi */}
+                              <div className="absolute bottom-12 right-8 text-base text-gray-700">
+                                {cardExpiry || "22/25"}
+                              </div>
+                              {/* Logo */}
+                              <div className="absolute bottom-4 right-8">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="mastercard" className="w-12 h-8" />
+                              </div>
+                            </div>
+                            {/* Arka Yüz */}
+                            <div className={`absolute inset-0 w-full h-full bg-gray-200 rounded-2xl transition-opacity duration-300 flex flex-col items-center justify-center ${isCardBack ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}>
+                              {/* Siyah şerit */}
+                              <div className="absolute top-10 left-0 w-full h-8 bg-gray-800" />
+                              {/* Beyaz şerit ve CVC */}
+                              <div className="absolute top-24 left-8 w-[260px] h-8 bg-white rounded-sm flex items-center px-4">
+                                <span className="ml-auto text-lg font-bold tracking-widest text-gray-800">{cardCvc || '123'}</span>
+                              </div>
+                              {/* Logo */}
+                              <div className="absolute bottom-4 right-8">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="mastercard" className="w-12 h-8" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <input
+                          type="text"
+                          className="block w-full rounded border px-3 py-2 bg-blue-50 mb-2"
+                          placeholder="Kart Numarası *"
+                          maxLength={19}
+                          value={cardNumber}
+                          onChange={e => setCardNumber(e.target.value.replace(/[^0-9]/g, '').slice(0,16))}
+                        />
+                        <input
+                          type="text"
+                          className="block w-full rounded border px-3 py-2 bg-blue-50 mb-2"
+                          placeholder="Kart Üzerindeki İsim *"
+                          value={cardName}
+                          onChange={e => setCardName(e.target.value)}
+                        />
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            className="flex-1 rounded border px-3 py-2 bg-blue-50"
+                            placeholder="Son Kullanma Tarihi *"
+                            maxLength={5}
+                            value={cardExpiry}
+                            onChange={e => setCardExpiry(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            className="flex-1 rounded border px-3 py-2 bg-blue-50"
+                            placeholder="CVC *"
+                            maxLength={4}
+                            value={cardCvc}
+                            onFocus={() => setIsCardBack(true)}
+                            onBlur={() => setIsCardBack(false)}
+                            onChange={e => setCardCvc(e.target.value.replace(/[^0-9]/g, '').slice(0,4))}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2 mt-2">
                       <input
-                        type="text"
-                        className="mt-1 block w-full rounded border px-3 py-2"
-                        placeholder="123"
+                        type="checkbox"
+                        id="invoiceSame"
+                        checked={invoiceSame}
+                        onChange={() => setInvoiceSame(v => !v)}
+                        className="w-4 h-4"
                       />
+                      <label htmlFor="invoiceSame" className="text-sm">Fatura adresim teslimat adresimle aynı.</label>
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full rounded bg-black py-2 font-semibold text-white"
-                  >
-                    Ödemeyi Tamamla
-                  </button>
+                  {formError && (
+                    <div className="w-full text-center text-red-600 font-semibold text-sm mb-2">{formError}</div>
+                  )}
+                  {isProcessing ? (
+                    <div className="w-full text-center py-2 font-semibold text-blue-700">Ödeme alınıyor...</div>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="w-full rounded bg-black py-2 font-semibold text-white"
+                    >
+                      Ödemeyi Tamamla
+                    </button>
+                  )}
                 </form>
               </AccordionContent>
             </AccordionItem>
