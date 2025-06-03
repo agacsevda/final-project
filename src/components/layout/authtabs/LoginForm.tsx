@@ -3,16 +3,73 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../AllProducts";
+import { useToast } from "@/hooks/use-toast";
+
+const API_KEY = "136138";
+const JWT_TOKEN = "fc73d0da-a2aa-483d-ae49-98485ccc9aa7";
+
+interface LoginPayload {
+  username: string;
+  password: string;
+  api_key: string;
+}
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Burada giriş işlemleri yapılacak
-    console.log("Giriş yapılıyor:", { email, password });
+    
+    const payload: LoginPayload = {
+      username: email,
+      password: password,
+      api_key: API_KEY
+    };
+
+    try {
+      const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        toast({
+          title: "Hata!",
+          description: "Kullanıcı adı veya şifre hatalı",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const jsonResponse = await response.json();
+      
+      // Token'ları localStorage'a kaydet
+      localStorage.setItem("access_token", jsonResponse.access_token);
+      localStorage.setItem("refresh_token", jsonResponse.refresh_token);
+
+      toast({
+        title: "Başarılı!",
+        description: "Giriş başarıyla yapıldı",
+        variant: "default",
+      });
+
+      // Hesap sayfasına yönlendir
+      navigate("/myaccount/information");
+    } catch (error) {
+      console.error("Giriş hatası:", error);
+      toast({
+        title: "Hata!",
+        description: "Bir hata oluştu. Lütfen tekrar deneyin.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

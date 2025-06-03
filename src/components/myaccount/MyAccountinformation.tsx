@@ -21,7 +21,7 @@ type AccountFormValues = {
   email: string
 }
 
-export function AccountForm() {
+export default function MyAccountInformation() {
   const form = useForm<AccountFormValues>({
     defaultValues: {
       firstName: "sevda",

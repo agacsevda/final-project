@@ -377,7 +377,7 @@ const OrderPage = () => {
                               <div className="absolute top-10 left-0 w-full h-8 bg-gray-800" />
                               {/* Beyaz şerit ve CVC */}
                               <div className="absolute top-24 left-8 w-[260px] h-8 bg-white rounded-sm flex items-center px-4">
-                                <span className="ml-auto text-lg font-bold tracking-widest text-gray-800">{cardCvc || '123'}</span>
+                                <span className="ml-auto text-lg font-bold tracking-widest text-black">{cardCvc || '123'}</span>
                               </div>
                               {/* Logo */}
                               <div className="absolute bottom-4 right-8">

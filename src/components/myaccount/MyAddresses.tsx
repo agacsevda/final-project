@@ -34,11 +34,7 @@ type AddressFormValues = {
   phone: string
 }
 
-interface AddressFormProps {
-  onClose?: () => void
-}
-
-export function AddressForm({ onClose }: AddressFormProps) {
+export default function MyAddresses() {
   const form = useForm<AddressFormValues>({
     defaultValues: {
       title: "",
@@ -54,7 +50,6 @@ export function AddressForm({ onClose }: AddressFormProps) {
   function onSubmit(data: AddressFormValues) {
     console.log("Form data:", data)
     alert("Adres kaydedildi!")
-    onClose?.()
   }
 
   return (
@@ -89,7 +84,7 @@ export function AddressForm({ onClose }: AddressFormProps) {
                 <FormItem>
                   <FormLabel>Ad *</FormLabel>
                   <FormControl>
-                    <Input placeholder="Adınız" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +97,7 @@ export function AddressForm({ onClose }: AddressFormProps) {
                 <FormItem>
                   <FormLabel>Soyad *</FormLabel>
                   <FormControl>
-                    <Input placeholder="Soyadınız" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,7 +111,7 @@ export function AddressForm({ onClose }: AddressFormProps) {
               <FormItem>
                 <FormLabel>Adres *</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Açık adresinizi giriniz" {...field} />
+                  <Textarea placeholder="Adres bilgilerinizi giriniz" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,8 +154,8 @@ export function AddressForm({ onClose }: AddressFormProps) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="kadikoy">Kadıköy</SelectItem>
-                      <SelectItem value="cankaya">Çankaya</SelectItem>
-                      <SelectItem value="bornova">Bornova</SelectItem>
+                      <SelectItem value="besiktas">Beşiktaş</SelectItem>
+                      <SelectItem value="sisli">Şişli</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

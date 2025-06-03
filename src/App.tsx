@@ -16,6 +16,10 @@ import SuccessPage from "@/pages/Success";
 import LoginForm from "./components/layout/authtabs/LoginForm";
 import RegisterForm from "./components/layout/authtabs/RegisterForm";
 import { Toaster } from "@/components/ui/toaster";
+import MyAccountLayout from "./components/myaccount/MyAccountLayout";
+import MyAccountInformation from "./components/myaccount/MyAccountinformation";
+import MyAddresses from "./components/myaccount/MyAddresses";
+import MyOrders from "./components/myaccount/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +68,24 @@ const router = createBrowserRouter([
       {
         path: "auth/register",
         element: <RegisterForm />,
+      },
+      {
+        path: "myaccount",
+        element: <MyAccountLayout />,
+        children: [
+          {
+            path: "information",
+            element: <MyAccountInformation />,
+          },
+          {
+            path: "addresses",
+            element: <MyAddresses />,
+          },
+          {
+            path: "orders",
+            element: <MyOrders />,
+          },
+        ],
       },
     ],
   },
