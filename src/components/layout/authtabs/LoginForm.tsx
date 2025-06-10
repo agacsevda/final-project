@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../AllProducts";
 import { useToast } from "@/hooks/use-toast";
+import { ChangePasswordDialog } from "./ChangePasswordDialog";
 
 const API_KEY = "136138";
 const JWT_TOKEN = "fc73d0da-a2aa-483d-ae49-98485ccc9aa7";
@@ -99,7 +100,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="text-right text-sm">
-          <a href="#" className="text-gray-500 hover:underline">Şifremi unuttum?</a>
+          <ChangePasswordDialog />
         </div>
         <Button type="submit" className="w-full">Giriş Yap</Button>
         <div className="text-center mt-4">

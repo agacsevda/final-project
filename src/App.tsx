@@ -20,6 +20,7 @@ import MyAccountLayout from "./components/myaccount/MyAccountLayout";
 import MyAccountInformation from "./components/myaccount/MyAccountinformation";
 import MyAddresses from "./components/myaccount/MyAddresses";
 import MyOrders from "./components/myaccount/MyOrders";
+import ProfilePage from "@/pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             element: <MyOrders />,
           },
         ],
+      },
+      {
+        path: "/myaccount/information",
+        element: <ProfilePage />,
       },
     ],
   },
