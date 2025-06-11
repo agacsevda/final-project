@@ -13,6 +13,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form"
+import { useState, useEffect } from "react"
 
 type AccountFormValues = {
   firstName: string
@@ -22,18 +23,66 @@ type AccountFormValues = {
 }
 
 export default function MyAccountInformation() {
+  const [isLoading, setIsLoading] = useState(false)
+
   const form = useForm<AccountFormValues>({
     defaultValues: {
-      firstName: "sevda",
-      lastName: "ağaç",
+      firstName: "",
+      lastName: "",
       phone: "+90",
-      email: "sevdakarapolatt@gmail.com",
+      email: "",
     },
   })
 
-  function onSubmit(data: AccountFormValues) {
-    console.log("Form submitted:", data)
-    alert("Bilgiler güncellendi!")
+  // Loader fonksiyonu
+  const loadUserData = async () => {
+    try {
+      setIsLoading(true)
+      // API'den kullanıcı bilgilerini çekme işlemi burada yapılacak
+      const response = await fetch('/api/user/profile')
+      const data = await response.json()
+      
+      form.reset({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        email: data.email,
+      })
+    } catch (error) {
+      console.error('Kullanıcı bilgileri yüklenirken hata oluştu:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Sayfa yüklendiğinde bilgileri çek
+  useEffect(() => {
+    loadUserData()
+  }, []) // Boş dependency array ile sadece component mount olduğunda çalışacak
+
+  async function onSubmit(data: AccountFormValues) {
+    try {
+      setIsLoading(true)
+      // API'ye güncelleme isteği gönderme
+      const response = await fetch('/api/user/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        alert("Bilgiler başarıyla güncellendi!")
+      } else {
+        throw new Error('Güncelleme başarısız oldu')
+      }
+    } catch (error) {
+      console.error('Güncelleme sırasında hata oluştu:', error)
+      alert("Güncelleme sırasında bir hata oluştu!")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -50,7 +99,7 @@ export default function MyAccountInformation() {
                 <FormItem>
                   <FormLabel>Ad *</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -63,7 +112,7 @@ export default function MyAccountInformation() {
                 <FormItem>
                   <FormLabel>Soyad *</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,7 +127,7 @@ export default function MyAccountInformation() {
               <FormItem>
                 <FormLabel>Telefon Numarası</FormLabel>
                 <FormControl>
-                  <Input prefix="+90" {...field} />
+                  <Input prefix="+90" {...field} disabled={isLoading} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,8 +154,12 @@ export default function MyAccountInformation() {
             </a>
           </div>
 
-          <Button type="submit" className="ml-auto block bg-black text-white hover:bg-gray-800">
-            GÜNCELLE
+          <Button 
+            type="submit" 
+            className="ml-auto block bg-black text-white hover:bg-gray-800"
+            disabled={isLoading}
+          >
+            {isLoading ? 'GÜNCELLENİYOR...' : 'GÜNCELLE'}
           </Button>
         </form>
       </Form>
